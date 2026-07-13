@@ -1,0 +1,3110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LogoCompin Monopoly</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e1ea;
+      --panel: #ffffff;
+      --paper: #f6f8fb;
+      --teal: #087f7b;
+      --teal-2: #d7f4ee;
+      --blue: #1d4ed8;
+      --blue-2: #dce9ff;
+      --amber: #b7791f;
+      --amber-2: #fff3d6;
+      --rose: #be123c;
+      --rose-2: #ffe1e8;
+      --green: #14743f;
+      --green-2: #dff7e9;
+      --shadow: 0 16px 48px rgba(24, 34, 52, 0.12);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(115deg, rgba(8, 127, 123, 0.10), transparent 34%),
+        linear-gradient(250deg, rgba(183, 121, 31, 0.10), transparent 42%),
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    button:disabled,
+    input:disabled,
+    textarea:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .login-shell {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .login-panel {
+      width: min(460px, 100%);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      color: white;
+      font-weight: 900;
+      font-size: 22px;
+      box-shadow: 0 10px 24px rgba(8, 127, 123, 0.24);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .login-panel h1 {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .login-panel p {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .field span,
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      padding: 12px 13px;
+      outline: 0;
+      min-height: 44px;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(8, 127, 123, 0.14);
+    }
+
+    .hint {
+      min-height: 22px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hint.good {
+      color: var(--green);
+    }
+
+    .hint.bad {
+      color: var(--rose);
+    }
+
+    .primary,
+    .secondary,
+    .danger,
+    .ghost,
+    .tiny {
+      min-height: 42px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .primary {
+      background: var(--teal);
+      color: white;
+    }
+
+    .secondary {
+      background: var(--blue-2);
+      color: var(--blue);
+    }
+
+    .danger {
+      background: var(--rose-2);
+      color: var(--rose);
+    }
+
+    .ghost {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .tiny {
+      min-height: 34px;
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(246, 248, 251, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .identity strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .identity small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .balance-box {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .balance {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      min-width: 144px;
+      text-align: right;
+    }
+
+    .balance span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .balance strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.1;
+    }
+
+    .tabs-wrap {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .tabs {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .tab {
+      color: var(--muted);
+      background: transparent;
+      min-height: 46px;
+      padding: 0 13px;
+      border-bottom: 3px solid transparent;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--teal);
+      border-color: var(--teal);
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 22px 20px 48px;
+    }
+
+    .notice {
+      display: none;
+      background: var(--amber-2);
+      border: 1px solid #f3d08b;
+      color: #71470d;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .panel,
+    .item-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(24, 34, 52, 0.06);
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2,
+    .section-head h3 {
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .form-grid.two {
+      grid-template-columns: 1fr 150px;
+    }
+
+    .inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .activity-list,
+    .order-list,
+    .campaign-list,
+    .member-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .activity {
+      display: grid;
+      grid-template-columns: 42px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--teal-2);
+      color: var(--teal);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .activity strong,
+    .item-card strong {
+      display: block;
+    }
+
+    .meta,
+    .subtle {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .amount.plus {
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .amount.minus {
+      color: var(--rose);
+      font-weight: 900;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .item-card {
+      overflow: hidden;
+      display: grid;
+      min-height: 100%;
+    }
+
+    .product-image {
+      aspect-ratio: 4 / 3;
+      background:
+        linear-gradient(135deg, rgba(8, 127, 123, 0.14), transparent),
+        linear-gradient(250deg, rgba(183, 121, 31, 0.16), transparent),
+        #eef3f7;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 900;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-body {
+      padding: 13px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .price-pill,
+    .status-pill,
+    .otp-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      width: fit-content;
+    }
+
+    .price-pill {
+      color: #71470d;
+      background: var(--amber-2);
+    }
+
+    .status-pill {
+      color: var(--blue);
+      background: var(--blue-2);
+    }
+
+    .status-pill.done {
+      color: var(--green);
+      background: var(--green-2);
+    }
+
+    .status-pill.bad {
+      color: var(--rose);
+      background: var(--rose-2);
+    }
+
+    .otp-pill {
+      color: var(--ink);
+      background: #eef2f7;
+      letter-spacing: 2px;
+      user-select: all;
+    }
+
+    .order-card,
+    .campaign-card,
+    .member-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      gap: 10px;
+      background: white;
+    }
+
+    .order-top,
+    .campaign-top,
+    .member-row {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .order-top,
+    .campaign-top {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .timeline span {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .timeline span.active {
+      color: var(--green);
+      background: var(--green-2);
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .wheel-box {
+      display: grid;
+      place-items: center;
+      gap: 12px;
+    }
+
+    #wheelCanvas {
+      width: min(320px, 100%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: white;
+      border: 8px solid #ffffff;
+      box-shadow: 0 12px 28px rgba(24, 34, 52, 0.10);
+    }
+
+    .chess-board {
+      width: min(460px, 100%);
+      aspect-ratio: 1;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      border: 1px solid #1f2937;
+      margin-inline: auto;
+    }
+
+    .square {
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: clamp(18px, 4vw, 34px);
+      min-width: 0;
+      min-height: 0;
+      user-select: none;
+    }
+
+    .square.light {
+      background: #e8d9bd;
+    }
+
+    .square.dark {
+      background: #6b7f5d;
+      color: white;
+    }
+
+    .square.selected {
+      outline: 4px solid #facc15;
+      outline-offset: -4px;
+    }
+
+    .maze-board {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 3px;
+      width: min(430px, 100%);
+      margin-inline: auto;
+      background: #d9e1ea;
+      border: 1px solid var(--line);
+      padding: 3px;
+      border-radius: 8px;
+      aspect-ratio: 1;
+    }
+
+    .maze-cell {
+      border-radius: 4px;
+      background: white;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 900;
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .maze-cell.wall {
+      background: #1f2937;
+    }
+
+    .maze-cell.finish {
+      background: var(--amber-2);
+      color: #71470d;
+    }
+
+    .maze-cell.p1 {
+      background: var(--teal);
+      color: white;
+    }
+
+    .maze-cell.p2 {
+      background: var(--rose);
+      color: white;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 42px);
+      grid-template-rows: repeat(3, 38px);
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .dpad button {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-weight: 900;
+    }
+
+    .dpad .up {
+      grid-column: 2;
+    }
+
+    .dpad .left {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .dpad .right {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .dpad .down {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .modal-root {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60;
+    }
+
+    .modal {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(15, 23, 42, 0.36);
+      padding: 20px;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      width: min(440px, 100%);
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+
+    .success-orbit {
+      position: relative;
+      width: 132px;
+      height: 110px;
+      margin: 0 auto 12px;
+    }
+
+    .tick-ring {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: var(--blue);
+      position: absolute;
+      left: 25px;
+      top: 13px;
+      transform: scale(0.7);
+      animation: pop 520ms cubic-bezier(.2, 1.35, .4, 1) forwards;
+      box-shadow: 0 10px 24px rgba(29, 78, 216, 0.28);
+    }
+
+    .tick-ring::after {
+      content: "";
+      position: absolute;
+      width: 28px;
+      height: 14px;
+      border-left: 6px solid white;
+      border-bottom: 6px solid white;
+      transform: rotate(-45deg);
+      left: 24px;
+      top: 28px;
+    }
+
+    .coin {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 30% 25%, #fff7bf, #facc15 52%, #b7791f 100%);
+      color: #71470d;
+      font-weight: 1000;
+      box-shadow: inset -5px -5px 10px rgba(113, 71, 13, 0.2), 0 8px 18px rgba(113, 71, 13, 0.24);
+      animation: coinBlink 900ms ease-in-out infinite alternate;
+    }
+
+    .coin.one {
+      left: 0;
+      top: 18px;
+    }
+
+    .coin.two {
+      right: 0;
+      bottom: 8px;
+      animation-delay: 200ms;
+    }
+
+    .rose-wrap {
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 10px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .rose-flower {
+      width: 68px;
+      height: 68px;
+      position: relative;
+      animation: pop 520ms cubic-bezier(.2, 1.35, .4, 1) both;
+    }
+
+    .petal {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      border-radius: 38px 38px 6px 38px;
+      background: linear-gradient(135deg, #ff8aaa, #be123c);
+      left: 15px;
+      top: 15px;
+      transform-origin: 20px 20px;
+    }
+
+    .petal:nth-child(1) { transform: rotate(0deg) translateY(-17px); }
+    .petal:nth-child(2) { transform: rotate(72deg) translateY(-17px); }
+    .petal:nth-child(3) { transform: rotate(144deg) translateY(-17px); }
+    .petal:nth-child(4) { transform: rotate(216deg) translateY(-17px); }
+    .petal:nth-child(5) { transform: rotate(288deg) translateY(-17px); }
+
+    .rose-stem {
+      width: 8px;
+      height: 58px;
+      background: var(--green);
+      border-radius: 999px;
+      position: absolute;
+      bottom: 0;
+      left: 52px;
+      transform: rotate(8deg);
+      transform-origin: top;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 70;
+      background: #172033;
+      color: white;
+      padding: 12px 14px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      max-width: min(360px, calc(100vw - 36px));
+      font-weight: 700;
+      animation: slideIn 220ms ease-out;
+    }
+
+    .empty {
+      border: 1px dashed var(--line);
+      color: var(--muted);
+      padding: 18px;
+      border-radius: 8px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes pop {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes coinBlink {
+      from {
+        transform: translateY(0) rotate(-8deg) scale(0.96);
+        filter: brightness(0.94);
+      }
+
+      to {
+        transform: translateY(-9px) rotate(10deg) scale(1.05);
+        filter: brightness(1.12);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .grid.two,
+      .grid.three,
+      .game-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .balance-box {
+        grid-auto-flow: row;
+        grid-template-columns: 1fr auto;
+      }
+
+      .balance {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .login-panel,
+      .panel {
+        padding: 16px;
+      }
+
+      .form-grid.two,
+      .order-top,
+      .campaign-top,
+      .member-row {
+        grid-template-columns: 1fr;
+      }
+
+      .inline-actions {
+        align-items: stretch;
+      }
+
+      .inline-actions > * {
+        flex: 1 1 auto;
+      }
+
+      .activity {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .activity .amount {
+        grid-column: 2;
+      }
+
+      .controls-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="loginScreen" class="login-shell">
+    <form id="loginForm" class="login-panel" autocomplete="off">
+      <div class="brand-row">
+        <div class="brand-mark">LC</div>
+        <div>
+          <h1>LogoCompin</h1>
+          <p>Write your handle</p>
+        </div>
+      </div>
+      <label class="field">
+        <span>Handle</span>
+        <input id="handleInput" maxlength="24" placeholder="aryan_01" required>
+      </label>
+      <div id="handleStatus" class="hint">Letters, numbers, and underscore only.</div>
+      <label class="field">
+        <span>Admin key</span>
+        <input id="adminKeyInput" type="password" placeholder="Optional">
+      </label>
+      <button class="primary" type="submit" style="width:100%;margin-top:18px;">Continue</button>
+    </form>
+  </section>
+
+  <section id="appShell" class="hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="identity">
+          <div class="brand-mark">LC</div>
+          <div>
+            <strong id="profileName">Handle</strong>
+            <small id="cloudStatus">Connecting</small>
+          </div>
+        </div>
+        <div class="balance-box">
+          <div class="balance">
+            <span>Monopoly</span>
+            <strong id="balanceValue">100</strong>
+          </div>
+          <button id="logoutBtn" class="ghost tiny" type="button">Logout</button>
+        </div>
+      </div>
+      <div class="tabs-wrap">
+        <nav class="tabs" aria-label="App sections">
+          <button class="tab active" data-tab="pay" type="button">Pay</button>
+          <button class="tab" data-tab="market" type="button">Market</button>
+          <button class="tab" data-tab="orders" type="button">Orders and OTP</button>
+          <button class="tab" data-tab="campaigns" type="button">Campaigns</button>
+          <button class="tab" data-tab="games" type="button">Games</button>
+          <button id="adminTabButton" class="tab hidden" data-tab="admin" type="button">Admin</button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div id="systemNotice" class="notice"></div>
+
+      <section id="payPanel" class="tab-panel active">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Send Monopoly</h2>
+                <p>BHIM-style status with coin animation.</p>
+              </div>
+            </div>
+            <form id="sendForm" class="form-grid">
+              <label class="field">
+                <span>Receiver handle</span>
+                <input id="sendTo" placeholder="friend_handle" required>
+              </label>
+              <div class="form-grid two">
+                <label class="field" style="margin-top:0;">
+                  <span>Amount</span>
+                  <input id="sendAmount" type="number" min="1" step="1" value="10" required>
+                </label>
+                <label class="field" style="margin-top:0;">
+                  <span>Note</span>
+                  <input id="sendNote" maxlength="60" placeholder="optional">
+                </label>
+              </div>
+              <button class="primary" type="submit">Send now</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Recent Activity</h2>
+                <p id="activityCount">No transfers yet.</p>
+              </div>
+            </div>
+            <div id="activityList" class="activity-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="marketPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Launch Product</h2>
+                <p>Create a shop item with image and price.</p>
+              </div>
+            </div>
+            <form id="productForm" class="form-grid">
+              <label class="field">
+                <span>Product name</span>
+                <input id="productTitle" maxlength="70" placeholder="Notebook, sticker, toy" required>
+              </label>
+              <label class="field">
+                <span>Price</span>
+                <input id="productPrice" type="number" min="1" step="1" value="10" required>
+              </label>
+              <label class="field">
+                <span>Image URL</span>
+                <input id="productImage" placeholder="https://example.com/image.jpg">
+              </label>
+              <label class="field">
+                <span>Or choose image</span>
+                <input id="productImageFile" type="file" accept="image/*">
+              </label>
+              <label class="field">
+                <span>Details</span>
+                <textarea id="productDetails" maxlength="240" placeholder="Short product detail"></textarea>
+              </label>
+              <button class="primary" type="submit">Launch product</button>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Shop</h2>
+                <p id="productCount">Products will appear here.</p>
+              </div>
+            </div>
+            <div id="productGrid" class="product-grid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="ordersPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>My OTP</h2>
+                <p>Delivery and campaign prize codes.</p>
+              </div>
+            </div>
+            <div id="otpList" class="order-list"></div>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Buying</h2>
+                <p>Confirm delivery or refund before OTP.</p>
+              </div>
+            </div>
+            <div id="buyingOrders" class="order-list"></div>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Selling</h2>
+                <p>Move orders through delivery status.</p>
+              </div>
+            </div>
+            <div id="sellingOrders" class="order-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="campaignsPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Start Campaign</h2>
+                <p>Two votes are needed before it starts.</p>
+              </div>
+            </div>
+            <form id="campaignForm" class="form-grid">
+              <label class="field">
+                <span>Campaign name</span>
+                <input id="campaignTitle" maxlength="70" placeholder="Art challenge" required>
+              </label>
+              <label class="field">
+                <span>Prize</span>
+                <input id="campaignPrize" type="number" min="1" step="1" value="10" required>
+              </label>
+              <label class="field">
+                <span>Details</span>
+                <textarea id="campaignDetails" maxlength="240" placeholder="Challenge details"></textarea>
+              </label>
+              <button class="primary" type="submit">Create campaign</button>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Campaign Board</h2>
+                <p id="campaignCount">No campaigns yet.</p>
+              </div>
+            </div>
+            <div id="campaignList" class="campaign-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gamesPanel" class="tab-panel">
+        <div class="game-grid">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Spin Wheel</h2>
+                <p>Admin can host, everyone can spin locally.</p>
+              </div>
+            </div>
+            <div class="wheel-box">
+              <canvas id="wheelCanvas" width="520" height="520"></canvas>
+              <textarea id="wheelEntries">10 Monopoly
+20 Monopoly
+Free Product
+Try Again
+50 Monopoly</textarea>
+              <div class="inline-actions">
+                <button id="spinWheelBtn" class="primary" type="button">Spin</button>
+                <span id="wheelResult" class="status-pill">Ready</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Chess</h2>
+                <p id="chessStatus">Loading board.</p>
+              </div>
+              <button id="resetChessBtn" class="ghost tiny" type="button">Reset</button>
+            </div>
+            <div id="chessBoard" class="chess-board"></div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Maze Race</h2>
+                <p id="mazeStatus">Player 1: WASD. Player 2: arrows.</p>
+              </div>
+              <button id="resetMazeBtn" class="ghost tiny" type="button">Reset</button>
+            </div>
+            <div id="mazeBoard" class="maze-board"></div>
+            <div class="controls-grid">
+              <div>
+                <div class="label" style="text-align:center;margin-bottom:8px;">Player 1</div>
+                <div class="dpad" data-player="0">
+                  <button class="up" data-move="0,-1" type="button">U</button>
+                  <button class="left" data-move="-1,0" type="button">L</button>
+                  <button class="right" data-move="1,0" type="button">R</button>
+                  <button class="down" data-move="0,1" type="button">D</button>
+                </div>
+              </div>
+              <div>
+                <div class="label" style="text-align:center;margin-bottom:8px;">Player 2</div>
+                <div class="dpad" data-player="1">
+                  <button class="up" data-move="0,-1" type="button">U</button>
+                  <button class="left" data-move="-1,0" type="button">L</button>
+                  <button class="right" data-move="1,0" type="button">R</button>
+                  <button class="down" data-move="0,1" type="button">D</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="adminPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Admin Powers</h2>
+                <p>Money, bans, and cleanup.</p>
+              </div>
+            </div>
+            <form id="adminGiveForm" class="form-grid">
+              <label class="field">
+                <span>Target handle</span>
+                <input id="adminTarget" placeholder="handle">
+              </label>
+              <label class="field">
+                <span>Amount</span>
+                <input id="adminAmount" type="number" min="1" step="1" value="100">
+              </label>
+              <div class="inline-actions">
+                <button class="primary" type="submit">Give money</button>
+                <button id="adminGiveAll" class="secondary" type="button">Give everyone</button>
+              </div>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Members</h2>
+                <p id="memberCount">Members will appear here.</p>
+              </div>
+            </div>
+            <div id="memberList" class="member-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="modalRoot" class="modal-root"></div>
+
+  <script type="module">
+    const ADMIN_KEY = "Aryan*123456789";
+    const START_BALANCE = 100;
+    const RESET_EVERY = 14 * 24 * 60 * 60 * 1000;
+    const LOCAL_KEY = "logocompin-monopoly-v1";
+    const SESSION_KEY = "logocompin-session-v1";
+    const SEEN_KEY = "logocompin-seen-v1";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJOQxGsefiAEMrx9-8mZkCL8_49X2FVLE",
+      authDomain: "campin-best.firebaseapp.com",
+      projectId: "campin-best",
+      storageBucket: "campin-best.firebasestorage.app",
+      messagingSenderId: "518152948031",
+      appId: "1:518152948031:web:d4e6fadcd406613e83eb8a",
+      measurementId: "G-4RRQ493LE5"
+    };
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    const els = {
+      loginScreen: $("#loginScreen"),
+      loginForm: $("#loginForm"),
+      handleInput: $("#handleInput"),
+      adminKeyInput: $("#adminKeyInput"),
+      handleStatus: $("#handleStatus"),
+      appShell: $("#appShell"),
+      profileName: $("#profileName"),
+      cloudStatus: $("#cloudStatus"),
+      balanceValue: $("#balanceValue"),
+      logoutBtn: $("#logoutBtn"),
+      adminTabButton: $("#adminTabButton"),
+      systemNotice: $("#systemNotice"),
+      sendForm: $("#sendForm"),
+      activityList: $("#activityList"),
+      activityCount: $("#activityCount"),
+      productForm: $("#productForm"),
+      productImageFile: $("#productImageFile"),
+      productGrid: $("#productGrid"),
+      productCount: $("#productCount"),
+      otpList: $("#otpList"),
+      buyingOrders: $("#buyingOrders"),
+      sellingOrders: $("#sellingOrders"),
+      campaignForm: $("#campaignForm"),
+      campaignList: $("#campaignList"),
+      campaignCount: $("#campaignCount"),
+      adminPanel: $("#adminPanel"),
+      adminGiveForm: $("#adminGiveForm"),
+      adminGiveAll: $("#adminGiveAll"),
+      memberList: $("#memberList"),
+      memberCount: $("#memberCount"),
+      modalRoot: $("#modalRoot"),
+      wheelCanvas: $("#wheelCanvas"),
+      wheelEntries: $("#wheelEntries"),
+      wheelResult: $("#wheelResult"),
+      spinWheelBtn: $("#spinWheelBtn"),
+      chessBoard: $("#chessBoard"),
+      chessStatus: $("#chessStatus"),
+      resetChessBtn: $("#resetChessBtn"),
+      mazeBoard: $("#mazeBoard"),
+      mazeStatus: $("#mazeStatus"),
+      resetMazeBtn: $("#resetMazeBtn")
+    };
+
+    const state = {
+      cloud: false,
+      offline: false,
+      fx: null,
+      db: null,
+      handle: "",
+      isAdmin: false,
+      member: null,
+      ledger: [],
+      products: [],
+      orders: [],
+      campaigns: [],
+      members: [],
+      seen: new Set(readJson(SEEN_KEY, [])),
+      unsubs: [],
+      selectedImageData: "",
+      activeTab: "pay",
+      chess: null,
+      ChessClass: null,
+      selectedSquare: null,
+      mazePlayers: [{ x: 1, y: 1 }, { x: 1, y: 2 }],
+      mazeFinished: false
+    };
+
+    let localDB = readJson(LOCAL_KEY, {
+      members: {},
+      ledger: {},
+      products: {},
+      orders: {},
+      campaigns: {}
+    });
+
+    function readJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function writeJson(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function saveLocal() {
+      writeJson(LOCAL_KEY, localDB);
+    }
+
+    function saveSeen() {
+      writeJson(SEEN_KEY, Array.from(state.seen).slice(-400));
+    }
+
+    function cleanHandle(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, "")
+        .slice(0, 24);
+    }
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    function money(value) {
+      if (state.isAdmin && state.member?.handle === state.handle) return "Unlimited";
+      return `${Number(value || 0).toLocaleString()} M`;
+    }
+
+    function timeValue(value) {
+      if (!value) return 0;
+      if (typeof value === "number") return value;
+      if (typeof value.toMillis === "function") return value.toMillis();
+      if (typeof value.seconds === "number") return value.seconds * 1000;
+      const parsed = Date.parse(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function formatTime(value) {
+      const ms = timeValue(value);
+      if (!ms) return "now";
+      return new Intl.DateTimeFormat([], { dateStyle: "short", timeStyle: "short" }).format(new Date(ms));
+    }
+
+    function id(prefix) {
+      return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+    }
+
+    function otp() {
+      return String(Math.floor(100000 + Math.random() * 900000));
+    }
+
+    function unique(values) {
+      return Array.from(new Set(values.filter(Boolean)));
+    }
+
+    function nowData() {
+      return state.cloud ? state.fx.serverTimestamp() : Date.now();
+    }
+
+    function clientNow() {
+      return Date.now();
+    }
+
+    async function connectFirebase() {
+      try {
+        const [appMod, analyticsMod, firestoreMod] = await Promise.all([
+          import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+          import("https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js"),
+          import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js")
+        ]);
+        const app = appMod.initializeApp(firebaseConfig);
+        try {
+          analyticsMod.getAnalytics(app);
+        } catch (error) {
+          console.info("Analytics unavailable in this browser context.");
+        }
+        state.fx = firestoreMod;
+        state.db = firestoreMod.getFirestore(app);
+        state.cloud = true;
+        state.offline = false;
+        setCloudStatus("Firebase cloud ready");
+      } catch (error) {
+        switchOffline(error);
+      }
+    }
+
+    function setCloudStatus(text) {
+      els.cloudStatus.textContent = text;
+    }
+
+    function switchOffline(error) {
+      if (error) console.warn("Using browser demo mode:", error);
+      state.cloud = false;
+      state.offline = true;
+      clearSubscriptions();
+      setCloudStatus("Browser demo mode");
+      showNotice("Firebase could not be reached or Firestore rules blocked access. This browser is using demo storage.");
+      if (state.handle && !localDB.members[state.handle]) {
+        localDB.members[state.handle] = makeMember(state.handle, state.isAdmin);
+        saveLocal();
+      }
+      pullLocalState();
+    }
+
+    function showNotice(text) {
+      els.systemNotice.textContent = text;
+      els.systemNotice.classList.add("show");
+    }
+
+    function hideNotice() {
+      els.systemNotice.classList.remove("show");
+      els.systemNotice.textContent = "";
+    }
+
+    function makeMember(handle, isAdmin = false) {
+      return {
+        handle,
+        balance: isAdmin ? 999999999 : START_BALANCE,
+        banned: false,
+        createdAt: clientNow(),
+        lastReset: clientNow()
+      };
+    }
+
+    function shouldReset(member) {
+      const last = timeValue(member?.lastReset);
+      return !state.isAdmin && (!last || Date.now() - last >= RESET_EVERY);
+    }
+
+    async function getMember(handle) {
+      handle = cleanHandle(handle);
+      if (!handle) return null;
+      if (state.cloud) {
+        try {
+          const ref = state.fx.doc(state.db, "members", handle);
+          const snap = await state.fx.getDoc(ref);
+          return snap.exists() ? { id: snap.id, ...snap.data() } : null;
+        } catch (error) {
+          switchOffline(error);
+        }
+      }
+      return localDB.members[handle] ? { id: handle, ...localDB.members[handle] } : null;
+    }
+
+    async function ensureMember(handle) {
+      handle = cleanHandle(handle);
+      if (state.cloud) {
+        try {
+          const ref = state.fx.doc(state.db, "members", handle);
+          const snap = await state.fx.getDoc(ref);
+          if (!snap.exists()) {
+            const member = makeMember(handle, state.isAdmin);
+            await state.fx.setDoc(ref, {
+              ...member,
+              createdAt: nowData(),
+              lastReset: clientNow()
+            });
+            return member;
+          }
+          const member = { id: snap.id, ...snap.data(), handle };
+          if (shouldReset(member)) {
+            await state.fx.updateDoc(ref, { balance: START_BALANCE, lastReset: clientNow() });
+            member.balance = START_BALANCE;
+            member.lastReset = clientNow();
+          }
+          if (state.isAdmin) member.balance = 999999999;
+          return member;
+        } catch (error) {
+          switchOffline(error);
+        }
+      }
+      if (!localDB.members[handle]) {
+        localDB.members[handle] = makeMember(handle, state.isAdmin);
+        saveLocal();
+      }
+      const member = localDB.members[handle];
+      if (shouldReset(member)) {
+        member.balance = START_BALANCE;
+        member.lastReset = clientNow();
+        saveLocal();
+      }
+      if (state.isAdmin) member.balance = 999999999;
+      return { id: handle, ...member };
+    }
+
+    function clearSubscriptions() {
+      state.unsubs.forEach((unsub) => {
+        try { unsub(); } catch (error) {}
+      });
+      state.unsubs = [];
+    }
+
+    function subscribeData() {
+      clearSubscriptions();
+      if (!state.cloud) {
+        pullLocalState();
+        return;
+      }
+
+      const fx = state.fx;
+      const db = state.db;
+      const handle = state.handle;
+      const safeSnap = (fn) => (error) => {
+        console.warn(error);
+        switchOffline(error);
+        fn?.();
+      };
+
+      state.unsubs.push(fx.onSnapshot(fx.doc(db, "members", handle), (snap) => {
+        if (snap.exists()) {
+          state.member = { id: snap.id, ...snap.data(), handle };
+          if (state.isAdmin) state.member.balance = 999999999;
+          renderAll();
+        }
+      }, safeSnap()));
+
+      state.unsubs.push(fx.onSnapshot(
+        fx.query(fx.collection(db, "ledger"), fx.where("parties", "array-contains", handle), fx.limit(80)),
+        (snap) => {
+          state.ledger = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            .sort(sortNewest);
+          renderActivity();
+          checkPopups();
+        },
+        safeSnap()
+      ));
+
+      state.unsubs.push(fx.onSnapshot(
+        fx.query(fx.collection(db, "products"), fx.limit(120)),
+        (snap) => {
+          state.products = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            .filter((product) => product.active !== false)
+            .sort(sortNewest);
+          renderProducts();
+        },
+        safeSnap()
+      ));
+
+      state.unsubs.push(fx.onSnapshot(
+        fx.query(fx.collection(db, "orders"), fx.where("parties", "array-contains", handle), fx.limit(120)),
+        (snap) => {
+          state.orders = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            .sort(sortNewest);
+          renderOrders();
+          checkPopups();
+        },
+        safeSnap()
+      ));
+
+      state.unsubs.push(fx.onSnapshot(
+        fx.query(fx.collection(db, "campaigns"), fx.limit(120)),
+        (snap) => {
+          state.campaigns = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+            .filter((campaign) => campaign.status !== "deleted")
+            .sort(sortNewest);
+          renderCampaigns();
+        },
+        safeSnap()
+      ));
+
+      if (state.isAdmin) {
+        state.unsubs.push(fx.onSnapshot(
+          fx.query(fx.collection(db, "members"), fx.limit(200)),
+          (snap) => {
+            state.members = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+              .sort((a, b) => String(a.handle).localeCompare(String(b.handle)));
+            renderMembers();
+          },
+          safeSnap()
+        ));
+      }
+    }
+
+    function sortNewest(a, b) {
+      return (timeValue(b.clientCreatedAt) || timeValue(b.createdAt)) - (timeValue(a.clientCreatedAt) || timeValue(a.createdAt));
+    }
+
+    function pullLocalState() {
+      if (!state.handle) return;
+      state.member = localDB.members[state.handle] ? { id: state.handle, ...localDB.members[state.handle] } : null;
+      if (state.isAdmin && state.member) state.member.balance = 999999999;
+      state.ledger = Object.entries(localDB.ledger)
+        .map(([docId, data]) => ({ id: docId, ...data }))
+        .filter((tx) => tx.parties?.includes(state.handle))
+        .sort(sortNewest);
+      state.products = Object.entries(localDB.products)
+        .map(([docId, data]) => ({ id: docId, ...data }))
+        .filter((product) => product.active !== false)
+        .sort(sortNewest);
+      state.orders = Object.entries(localDB.orders)
+        .map(([docId, data]) => ({ id: docId, ...data }))
+        .filter((order) => order.parties?.includes(state.handle))
+        .sort(sortNewest);
+      state.campaigns = Object.entries(localDB.campaigns)
+        .map(([docId, data]) => ({ id: docId, ...data }))
+        .filter((campaign) => campaign.status !== "deleted")
+        .sort(sortNewest);
+      state.members = Object.entries(localDB.members)
+        .map(([docId, data]) => ({ id: docId, ...data }))
+        .sort((a, b) => String(a.handle).localeCompare(String(b.handle)));
+      renderAll();
+      checkPopups();
+    }
+
+    function renderAll() {
+      if (!state.handle) return;
+      els.profileName.textContent = `@${state.handle}${state.isAdmin ? " / admin" : ""}`;
+      els.balanceValue.textContent = money(state.member?.balance);
+      els.adminTabButton.classList.toggle("hidden", !state.isAdmin);
+      renderActivity();
+      renderProducts();
+      renderOrders();
+      renderCampaigns();
+      renderMembers();
+      renderTabs();
+      if (state.member?.banned && !state.isAdmin) {
+        showNotice("This handle is banned by admin. Payments, buying, selling, and campaigns are locked.");
+      } else if (!state.offline) {
+        hideNotice();
+      }
+    }
+
+    function renderTabs() {
+      $$(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === state.activeTab));
+      $$(".tab-panel").forEach((panel) => panel.classList.remove("active"));
+      $(`#${state.activeTab}Panel`)?.classList.add("active");
+    }
+
+    function renderActivity() {
+      els.activityCount.textContent = state.ledger.length ? `${state.ledger.length} transfer records` : "No transfers yet.";
+      if (!state.ledger.length) {
+        els.activityList.innerHTML = `<div class="empty">No payment activity.</div>`;
+        return;
+      }
+      els.activityList.innerHTML = state.ledger.map((tx) => {
+        const incoming = tx.to === state.handle;
+        const partner = incoming ? tx.from : tx.to;
+        const sign = incoming ? "+" : "-";
+        const cls = incoming ? "plus" : "minus";
+        const title = incoming ? `Received from @${esc(partner)}` : `Sent to @${esc(partner)}`;
+        return `
+          <article class="activity">
+            <div class="avatar">${esc((partner || "?").slice(0, 2))}</div>
+            <div>
+              <strong>${title}</strong>
+              <span class="meta">${esc(tx.note || "Monopoly transfer")} · ${formatTime(tx.clientCreatedAt || tx.createdAt)}</span>
+            </div>
+            <div class="amount ${cls}">${sign}${Number(tx.amount || 0)} M</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function productImageHtml(product) {
+      if (product.image) return `<img src="${esc(product.image)}" alt="${esc(product.title)}" loading="lazy">`;
+      return `<span>LC</span>`;
+    }
+
+    function renderProducts() {
+      els.productCount.textContent = state.products.length ? `${state.products.length} live products` : "Products will appear here.";
+      if (!state.products.length) {
+        els.productGrid.innerHTML = `<div class="empty">No products launched.</div>`;
+        return;
+      }
+      els.productGrid.innerHTML = state.products.map((product) => {
+        const mine = product.seller === state.handle;
+        return `
+          <article class="item-card">
+            <div class="product-image">${productImageHtml(product)}</div>
+            <div class="item-body">
+              <div>
+                <strong>${esc(product.title)}</strong>
+                <span class="subtle">Seller @${esc(product.seller)}</span>
+              </div>
+              <span class="price-pill">${Number(product.price || 0)} M</span>
+              <p class="subtle">${esc(product.details || "No details")}</p>
+              <div class="inline-actions">
+                <button class="primary tiny" data-buy="${esc(product.id)}" ${mine ? "disabled" : ""} type="button">Buy</button>
+                ${state.isAdmin || mine ? `<button class="danger tiny" data-delete-product="${esc(product.id)}" type="button">Remove</button>` : ""}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function orderStatusLabel(status) {
+      return ({
+        ordered: "Ordered",
+        shipped: "Shipped",
+        out_for_delivery: "Out for delivery",
+        waiting_otp: "Waiting OTP",
+        completed: "Delivered",
+        refunded: "Refunded"
+      })[status] || status || "Ordered";
+    }
+
+    function statusClass(status) {
+      if (status === "completed") return "done";
+      if (status === "refunded") return "bad";
+      return "";
+    }
+
+    function renderOrders() {
+      const buying = state.orders.filter((order) => order.buyer === state.handle);
+      const selling = state.orders.filter((order) => order.seller === state.handle);
+      const otpOrders = buying.filter((order) => !["completed", "refunded"].includes(order.status));
+      const campaignOtps = state.campaigns.filter((campaign) => {
+        const eligible = eligibleApprovers(campaign);
+        return campaign.status === "awaiting_prize" && eligible.includes(state.handle) && !(campaign.approvals || []).includes(state.handle);
+      });
+
+      els.otpList.innerHTML = [
+        ...otpOrders.map((order) => `
+          <article class="order-card">
+            <div class="order-top">
+              <div>
+                <strong>${esc(order.title)}</strong>
+                <span class="subtle">Delivery OTP for seller @${esc(order.seller)}</span>
+              </div>
+              <span class="otp-pill">${esc(order.otp)}</span>
+            </div>
+          </article>
+        `),
+        ...campaignOtps.map((campaign) => `
+          <article class="order-card">
+            <div class="order-top">
+              <div>
+                <strong>${esc(campaign.title)}</strong>
+                <span class="subtle">Prize approval OTP for @${esc(campaign.winner)}</span>
+              </div>
+              <span class="otp-pill">${esc(campaign.otp)}</span>
+            </div>
+          </article>
+        `)
+      ].join("") || `<div class="empty">No active OTP codes.</div>`;
+
+      els.buyingOrders.innerHTML = buying.map(renderBuyingOrder).join("") || `<div class="empty">No buying orders.</div>`;
+      els.sellingOrders.innerHTML = selling.map(renderSellingOrder).join("") || `<div class="empty">No selling orders.</div>`;
+    }
+
+    function renderBuyingOrder(order) {
+      const locked = ["completed", "refunded"].includes(order.status);
+      return `
+        <article class="order-card">
+          <div class="order-top">
+            <div>
+              <strong>${esc(order.title)}</strong>
+              <span class="subtle">Seller @${esc(order.seller)} · ${Number(order.price || 0)} M</span>
+            </div>
+            <span class="status-pill ${statusClass(order.status)}">${orderStatusLabel(order.status)}</span>
+          </div>
+          ${renderTimeline(order.status)}
+          <div class="form-grid two">
+            <input id="otp-${esc(order.id)}" placeholder="Delivery OTP" ${locked ? "disabled" : ""}>
+            <button class="secondary" data-confirm-order="${esc(order.id)}" ${locked ? "disabled" : ""} type="button">Confirm</button>
+          </div>
+          <div class="inline-actions">
+            <button class="danger tiny" data-refund-order="${esc(order.id)}" ${locked ? "disabled" : ""} type="button">Refund me</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderSellingOrder(order) {
+      const locked = ["completed", "refunded"].includes(order.status);
+      return `
+        <article class="order-card">
+          <div class="order-top">
+            <div>
+              <strong>${esc(order.title)}</strong>
+              <span class="subtle">Buyer @${esc(order.buyer)} · ${Number(order.price || 0)} M</span>
+            </div>
+            <span class="status-pill ${statusClass(order.status)}">${orderStatusLabel(order.status)}</span>
+          </div>
+          ${renderTimeline(order.status)}
+          <div class="inline-actions">
+            <button class="ghost tiny" data-order-status="${esc(order.id)}" data-status="shipped" ${locked ? "disabled" : ""} type="button">Shipped</button>
+            <button class="ghost tiny" data-order-status="${esc(order.id)}" data-status="out_for_delivery" ${locked ? "disabled" : ""} type="button">Out for delivery</button>
+            <button class="secondary tiny" data-order-status="${esc(order.id)}" data-status="waiting_otp" ${locked ? "disabled" : ""} type="button">Need OTP</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderTimeline(status) {
+      const steps = ["ordered", "shipped", "out_for_delivery", "waiting_otp", "completed"];
+      const activeIndex = status === "refunded" ? -1 : Math.max(0, steps.indexOf(status));
+      return `
+        <div class="timeline">
+          ${steps.map((step, index) => `<span class="${index <= activeIndex ? "active" : ""}">${orderStatusLabel(step)}</span>`).join("")}
+        </div>
+      `;
+    }
+
+    function campaignStatusLabel(status) {
+      return ({
+        voting: "Needs votes",
+        running: "Running",
+        awaiting_prize: "Prize OTP",
+        paid: "Prize paid"
+      })[status] || status || "Needs votes";
+    }
+
+    function eligibleApprovers(campaign) {
+      const pool = unique([...(campaign.votes || []), ...(campaign.participants || [])]);
+      return pool.filter((handle) => handle !== campaign.winner);
+    }
+
+    function approvalsNeeded(campaign) {
+      return Math.max(1, Math.min(2, eligibleApprovers(campaign).length));
+    }
+
+    function renderCampaigns() {
+      els.campaignCount.textContent = state.campaigns.length ? `${state.campaigns.length} active campaigns` : "No campaigns yet.";
+      if (!state.campaigns.length) {
+        els.campaignList.innerHTML = `<div class="empty">No campaigns started.</div>`;
+        return;
+      }
+      els.campaignList.innerHTML = state.campaigns.map((campaign) => {
+        const votes = campaign.votes || [];
+        const participants = campaign.participants || [];
+        const joined = participants.includes(state.handle);
+        const voted = votes.includes(state.handle);
+        const canApprove = campaign.status === "awaiting_prize" && eligibleApprovers(campaign).includes(state.handle) && !(campaign.approvals || []).includes(state.handle);
+        const approvalCount = (campaign.approvals || []).length;
+        return `
+          <article class="campaign-card">
+            <div class="campaign-top">
+              <div>
+                <strong>${esc(campaign.title)}</strong>
+                <span class="subtle">By @${esc(campaign.creator)} · Prize ${Number(campaign.prize || 0)} M</span>
+              </div>
+              <span class="status-pill ${campaign.status === "paid" ? "done" : ""}">${campaignStatusLabel(campaign.status)}</span>
+            </div>
+            <p class="subtle">${esc(campaign.details || "No details")}</p>
+            <div class="timeline">
+              <span class="${votes.length >= 1 ? "active" : ""}">Votes ${votes.length}/2</span>
+              <span class="${participants.length ? "active" : ""}">Players ${participants.length}</span>
+              ${campaign.winner ? `<span class="active">Winner @${esc(campaign.winner)}</span>` : ""}
+              ${campaign.status === "awaiting_prize" ? `<span>Approvals ${approvalCount}/${approvalsNeeded(campaign)}</span>` : ""}
+            </div>
+            <div class="inline-actions">
+              <button class="secondary tiny" data-vote-campaign="${esc(campaign.id)}" ${voted || campaign.status !== "voting" ? "disabled" : ""} type="button">Vote</button>
+              <button class="ghost tiny" data-join-campaign="${esc(campaign.id)}" ${joined || !["running", "awaiting_prize"].includes(campaign.status) ? "disabled" : ""} type="button">Join</button>
+              <button class="primary tiny" data-complete-campaign="${esc(campaign.id)}" ${campaign.status !== "running" || (!state.isAdmin && campaign.creator !== state.handle) ? "disabled" : ""} type="button">Complete</button>
+              ${canApprove ? `<input id="camp-otp-${esc(campaign.id)}" placeholder="Prize OTP" style="max-width:150px;"><button class="primary tiny" data-approve-campaign="${esc(campaign.id)}" type="button">Approve prize</button>` : ""}
+              ${state.isAdmin ? `<button class="danger tiny" data-delete-campaign="${esc(campaign.id)}" type="button">Delete</button>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderMembers() {
+      if (!state.isAdmin) return;
+      els.memberCount.textContent = state.members.length ? `${state.members.length} members` : "Members will appear here.";
+      if (!state.members.length) {
+        els.memberList.innerHTML = `<div class="empty">No members found.</div>`;
+        return;
+      }
+      els.memberList.innerHTML = state.members.map((member) => `
+        <article class="member-row">
+          <div>
+            <strong>@${esc(member.handle || member.id)}</strong>
+            <span class="subtle">${Number(member.balance || 0).toLocaleString()} M · ${member.banned ? "banned" : "active"}</span>
+          </div>
+          <div class="inline-actions">
+            <button class="${member.banned ? "secondary" : "danger"} tiny" data-ban="${esc(member.handle || member.id)}" data-banned="${member.banned ? "false" : "true"}" type="button">${member.banned ? "Unban" : "Ban"}</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function guardActive() {
+      if (state.member?.banned && !state.isAdmin) {
+        toast("This handle is banned by admin.");
+        return false;
+      }
+      return true;
+    }
+
+    async function login(event) {
+      event.preventDefault();
+      const handle = cleanHandle(els.handleInput.value);
+      if (!handle) {
+        setHandleHint("Write a valid handle first.", "bad");
+        return;
+      }
+      state.isAdmin = els.adminKeyInput.value.trim() === ADMIN_KEY;
+      const member = await ensureMember(handle);
+      if (member.banned && !state.isAdmin) {
+        setHandleHint("This handle is banned by admin.", "bad");
+        return;
+      }
+      state.handle = handle;
+      state.member = member;
+      writeJson(SESSION_KEY, { handle, isAdmin: state.isAdmin });
+      els.loginScreen.classList.add("hidden");
+      els.appShell.classList.remove("hidden");
+      setCloudStatus(state.cloud ? "Firebase cloud ready" : "Browser demo mode");
+      subscribeData();
+      drawWheel();
+      await loadChess();
+      resetMaze();
+      renderAll();
+    }
+
+    function logout() {
+      clearSubscriptions();
+      localStorage.removeItem(SESSION_KEY);
+      state.handle = "";
+      state.isAdmin = false;
+      state.member = null;
+      els.appShell.classList.add("hidden");
+      els.loginScreen.classList.remove("hidden");
+      els.adminKeyInput.value = "";
+      setHandleHint("Letters, numbers, and underscore only.", "");
+    }
+
+    function setHandleHint(text, mode) {
+      els.handleStatus.textContent = text;
+      els.handleStatus.className = `hint ${mode || ""}`;
+    }
+
+    let handleTimer = null;
+    function scheduleHandleCheck() {
+      clearTimeout(handleTimer);
+      handleTimer = setTimeout(async () => {
+        const handle = cleanHandle(els.handleInput.value);
+        if (els.handleInput.value !== handle) els.handleInput.value = handle;
+        if (!handle) {
+          setHandleHint("Letters, numbers, and underscore only.", "");
+          return;
+        }
+        const member = await getMember(handle);
+        if (!member) setHandleHint("Handle is available.", "good");
+        else if (member.banned) setHandleHint("Handle exists and is banned.", "bad");
+        else setHandleHint("Handle exists. You can continue as this handle.", "good");
+      }, 260);
+    }
+
+    async function sendMoney(event) {
+      event.preventDefault();
+      if (!guardActive()) return;
+      const to = cleanHandle($("#sendTo").value);
+      const amount = Math.floor(Number($("#sendAmount").value));
+      const note = $("#sendNote").value.trim().slice(0, 60);
+      if (!to || to === state.handle || amount < 1) {
+        toast("Check receiver and amount.");
+        return;
+      }
+
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const fromRef = fx.doc(state.db, "members", state.handle);
+          const toRef = fx.doc(state.db, "members", to);
+          const txRef = fx.doc(fx.collection(state.db, "ledger"));
+          await fx.runTransaction(state.db, async (tx) => {
+            const [fromSnap, toSnap] = await Promise.all([tx.get(fromRef), tx.get(toRef)]);
+            if (!toSnap.exists()) throw new Error("Receiver handle not found.");
+            const from = fromSnap.data();
+            const receiver = toSnap.data();
+            if (from?.banned && !state.isAdmin) throw new Error("Your handle is banned.");
+            if (receiver?.banned) throw new Error("Receiver is banned.");
+            if (!state.isAdmin && Number(from.balance || 0) < amount) throw new Error("Not enough Monopoly.");
+            if (!state.isAdmin) tx.update(fromRef, { balance: Number(from.balance || 0) - amount });
+            tx.update(toRef, { balance: Number(receiver.balance || 0) + amount });
+            tx.set(txRef, {
+              from: state.handle,
+              to,
+              amount,
+              note,
+              type: "send",
+              parties: unique([state.handle, to]),
+              createdAt: nowData(),
+              clientCreatedAt: clientNow()
+            });
+          });
+        } else {
+          const from = localDB.members[state.handle];
+          const receiver = localDB.members[to];
+          if (!receiver) throw new Error("Receiver handle not found.");
+          if (receiver.banned) throw new Error("Receiver is banned.");
+          if (!state.isAdmin && from.balance < amount) throw new Error("Not enough Monopoly.");
+          if (!state.isAdmin) from.balance -= amount;
+          receiver.balance += amount;
+          localDB.ledger[id("tx")] = {
+            from: state.handle,
+            to,
+            amount,
+            note,
+            type: "send",
+            parties: unique([state.handle, to]),
+            createdAt: clientNow(),
+            clientCreatedAt: clientNow()
+          };
+          saveLocal();
+          pullLocalState();
+        }
+        $("#sendForm").reset();
+        $("#sendAmount").value = "10";
+        showPaymentSuccess(to, amount);
+      } catch (error) {
+        if (state.cloud) {
+          switchOffline(error);
+          toast("Cloud write failed. Try again in demo mode.");
+        } else {
+          toast(error.message || "Payment failed.");
+        }
+      }
+    }
+
+    async function launchProduct(event) {
+      event.preventDefault();
+      if (!guardActive()) return;
+      const title = $("#productTitle").value.trim().slice(0, 70);
+      const price = Math.floor(Number($("#productPrice").value));
+      const image = state.selectedImageData || $("#productImage").value.trim();
+      const details = $("#productDetails").value.trim().slice(0, 240);
+      if (!title || price < 1) {
+        toast("Add product name and price.");
+        return;
+      }
+      const product = {
+        title,
+        price,
+        image,
+        details,
+        seller: state.handle,
+        active: true,
+        createdAt: nowData(),
+        clientCreatedAt: clientNow()
+      };
+      try {
+        if (state.cloud) {
+          await state.fx.addDoc(state.fx.collection(state.db, "products"), product);
+        } else {
+          localDB.products[id("product")] = { ...product, createdAt: clientNow() };
+          saveLocal();
+          pullLocalState();
+        }
+        state.selectedImageData = "";
+        els.productForm.reset();
+        $("#productPrice").value = "10";
+        toast("Product launched.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Product launch failed.");
+      }
+    }
+
+    async function buyProduct(productId) {
+      if (!guardActive()) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const productRef = fx.doc(state.db, "products", productId);
+          const buyerRef = fx.doc(state.db, "members", state.handle);
+          const orderRef = fx.doc(fx.collection(state.db, "orders"));
+          await fx.runTransaction(state.db, async (tx) => {
+            const [productSnap, buyerSnap] = await Promise.all([tx.get(productRef), tx.get(buyerRef)]);
+            if (!productSnap.exists()) throw new Error("Product not found.");
+            const product = productSnap.data();
+            const buyer = buyerSnap.data();
+            if (product.active === false) throw new Error("Product is removed.");
+            if (product.seller === state.handle) throw new Error("You cannot buy your own product.");
+            if (buyer.banned && !state.isAdmin) throw new Error("Your handle is banned.");
+            if (!state.isAdmin && Number(buyer.balance || 0) < Number(product.price || 0)) throw new Error("Not enough Monopoly.");
+            if (!state.isAdmin) tx.update(buyerRef, { balance: Number(buyer.balance || 0) - Number(product.price || 0) });
+            tx.set(orderRef, {
+              productId,
+              title: product.title,
+              image: product.image || "",
+              price: Number(product.price || 0),
+              seller: product.seller,
+              buyer: state.handle,
+              buyerCharged: !state.isAdmin,
+              status: "ordered",
+              otp: otp(),
+              parties: unique([state.handle, product.seller]),
+              paidToSeller: false,
+              createdAt: nowData(),
+              clientCreatedAt: clientNow()
+            });
+          });
+        } else {
+          const product = localDB.products[productId];
+          const buyer = localDB.members[state.handle];
+          if (!product || product.active === false) throw new Error("Product not found.");
+          if (product.seller === state.handle) throw new Error("You cannot buy your own product.");
+          if (!state.isAdmin && buyer.balance < product.price) throw new Error("Not enough Monopoly.");
+          if (!state.isAdmin) buyer.balance -= product.price;
+          localDB.orders[id("order")] = {
+            productId,
+            title: product.title,
+            image: product.image || "",
+            price: Number(product.price || 0),
+            seller: product.seller,
+            buyer: state.handle,
+            buyerCharged: !state.isAdmin,
+            status: "ordered",
+            otp: otp(),
+            parties: unique([state.handle, product.seller]),
+            paidToSeller: false,
+            createdAt: clientNow(),
+            clientCreatedAt: clientNow()
+          };
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Order created. OTP is in Orders.");
+        state.activeTab = "orders";
+        renderTabs();
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not buy product.");
+      }
+    }
+
+    async function deleteProduct(productId) {
+      const product = state.products.find((item) => item.id === productId);
+      if (!product || (!state.isAdmin && product.seller !== state.handle)) return;
+      try {
+        if (state.cloud) {
+          await state.fx.updateDoc(state.fx.doc(state.db, "products", productId), { active: false });
+        } else {
+          localDB.products[productId].active = false;
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Product removed.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Remove failed.");
+      }
+    }
+
+    async function updateOrderStatus(orderId, status) {
+      const order = state.orders.find((item) => item.id === orderId);
+      if (!order || order.seller !== state.handle || ["completed", "refunded"].includes(order.status)) return;
+      try {
+        if (state.cloud) {
+          await state.fx.updateDoc(state.fx.doc(state.db, "orders", orderId), {
+            status,
+            statusUpdatedAt: clientNow()
+          });
+        } else {
+          localDB.orders[orderId].status = status;
+          localDB.orders[orderId].statusUpdatedAt = clientNow();
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Order status updated.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Status update failed.");
+      }
+    }
+
+    async function confirmOrder(orderId) {
+      const input = $(`#otp-${CSS.escape(orderId)}`);
+      const code = input?.value.trim();
+      if (!code) {
+        toast("Enter delivery OTP.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const orderRef = fx.doc(state.db, "orders", orderId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const orderSnap = await tx.get(orderRef);
+            if (!orderSnap.exists()) throw new Error("Order not found.");
+            const order = orderSnap.data();
+            if (order.buyer !== state.handle) throw new Error("Only buyer can confirm.");
+            if (order.otp !== code) throw new Error("Wrong OTP.");
+            if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
+            const sellerRef = fx.doc(state.db, "members", order.seller);
+            const sellerSnap = await tx.get(sellerRef);
+            if (!sellerSnap.exists()) throw new Error("Seller not found.");
+            tx.update(sellerRef, { balance: Number(sellerSnap.data().balance || 0) + Number(order.price || 0) });
+            tx.update(orderRef, { status: "completed", paidToSeller: true, deliveredAt: clientNow() });
+          });
+        } else {
+          const order = localDB.orders[orderId];
+          if (!order || order.buyer !== state.handle) throw new Error("Order not found.");
+          if (order.otp !== code) throw new Error("Wrong OTP.");
+          if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
+          localDB.members[order.seller].balance += Number(order.price || 0);
+          order.status = "completed";
+          order.paidToSeller = true;
+          order.deliveredAt = clientNow();
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Delivery confirmed. Seller paid.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not confirm.");
+      }
+    }
+
+    async function refundOrder(orderId) {
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const orderRef = fx.doc(state.db, "orders", orderId);
+          const buyerRef = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const [orderSnap, buyerSnap] = await Promise.all([tx.get(orderRef), tx.get(buyerRef)]);
+            if (!orderSnap.exists()) throw new Error("Order not found.");
+            const order = orderSnap.data();
+            if (order.buyer !== state.handle) throw new Error("Only buyer can refund.");
+            if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
+            if (order.buyerCharged !== false) tx.update(buyerRef, { balance: Number(buyerSnap.data().balance || 0) + Number(order.price || 0) });
+            tx.update(orderRef, { status: "refunded", refundedAt: clientNow() });
+          });
+        } else {
+          const order = localDB.orders[orderId];
+          if (!order || order.buyer !== state.handle) throw new Error("Order not found.");
+          if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
+          if (order.buyerCharged !== false) localDB.members[state.handle].balance += Number(order.price || 0);
+          order.status = "refunded";
+          order.refundedAt = clientNow();
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Refund complete.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Refund failed.");
+      }
+    }
+
+    async function createCampaign(event) {
+      event.preventDefault();
+      if (!guardActive()) return;
+      const title = $("#campaignTitle").value.trim().slice(0, 70);
+      const prize = Math.floor(Number($("#campaignPrize").value));
+      const details = $("#campaignDetails").value.trim().slice(0, 240);
+      if (!title || prize < 1) {
+        toast("Add campaign name and prize.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const creatorRef = fx.doc(state.db, "members", state.handle);
+          const campaignRef = fx.doc(fx.collection(state.db, "campaigns"));
+          await fx.runTransaction(state.db, async (tx) => {
+            const creatorSnap = await tx.get(creatorRef);
+            const creator = creatorSnap.data();
+            if (creator.banned && !state.isAdmin) throw new Error("Your handle is banned.");
+            if (!state.isAdmin && Number(creator.balance || 0) < prize) throw new Error("Not enough Monopoly.");
+            if (!state.isAdmin) tx.update(creatorRef, { balance: Number(creator.balance || 0) - prize });
+            tx.set(campaignRef, {
+              title,
+              details,
+              prize,
+              creator: state.handle,
+              creatorCharged: !state.isAdmin,
+              votes: [state.handle],
+              participants: [state.handle],
+              approvals: [],
+              status: "voting",
+              createdAt: nowData(),
+              clientCreatedAt: clientNow()
+            });
+          });
+        } else {
+          const creator = localDB.members[state.handle];
+          if (!state.isAdmin && creator.balance < prize) throw new Error("Not enough Monopoly.");
+          if (!state.isAdmin) creator.balance -= prize;
+          localDB.campaigns[id("campaign")] = {
+            title,
+            details,
+            prize,
+            creator: state.handle,
+            creatorCharged: !state.isAdmin,
+            votes: [state.handle],
+            participants: [state.handle],
+            approvals: [],
+            status: "voting",
+            createdAt: clientNow(),
+            clientCreatedAt: clientNow()
+          };
+          saveLocal();
+          pullLocalState();
+        }
+        els.campaignForm.reset();
+        $("#campaignPrize").value = "10";
+        toast("Campaign created.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Campaign failed.");
+      }
+    }
+
+    async function voteCampaign(campaignId) {
+      if (!guardActive()) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "campaigns", campaignId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            if (!snap.exists()) throw new Error("Campaign not found.");
+            const campaign = snap.data();
+            if (campaign.status !== "voting") throw new Error("Voting is closed.");
+            const votes = unique([...(campaign.votes || []), state.handle]);
+            const participants = unique([...(campaign.participants || []), state.handle]);
+            tx.update(ref, { votes, participants, status: votes.length >= 2 ? "running" : "voting" });
+          });
+        } else {
+          const campaign = localDB.campaigns[campaignId];
+          if (!campaign || campaign.status !== "voting") throw new Error("Voting is closed.");
+          campaign.votes = unique([...(campaign.votes || []), state.handle]);
+          campaign.participants = unique([...(campaign.participants || []), state.handle]);
+          if (campaign.votes.length >= 2) campaign.status = "running";
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Vote added.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Vote failed.");
+      }
+    }
+
+    async function joinCampaign(campaignId) {
+      if (!guardActive()) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "campaigns", campaignId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            if (!snap.exists()) throw new Error("Campaign not found.");
+            const campaign = snap.data();
+            if (!["running", "awaiting_prize"].includes(campaign.status)) throw new Error("Campaign not open.");
+            tx.update(ref, { participants: unique([...(campaign.participants || []), state.handle]) });
+          });
+        } else {
+          const campaign = localDB.campaigns[campaignId];
+          if (!campaign || !["running", "awaiting_prize"].includes(campaign.status)) throw new Error("Campaign not open.");
+          campaign.participants = unique([...(campaign.participants || []), state.handle]);
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Joined campaign.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Join failed.");
+      }
+    }
+
+    async function completeCampaign(campaignId) {
+      const campaign = state.campaigns.find((item) => item.id === campaignId);
+      if (!campaign || (!state.isAdmin && campaign.creator !== state.handle)) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "campaigns", campaignId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            if (!snap.exists()) throw new Error("Campaign not found.");
+            const current = snap.data();
+            if (current.status !== "running") throw new Error("Campaign is not running.");
+            const pool = unique([...(current.participants || []), ...(current.votes || [])]);
+            const winner = pool[Math.floor(Math.random() * pool.length)];
+            tx.update(ref, {
+              status: "awaiting_prize",
+              winner,
+              otp: otp(),
+              approvals: [],
+              completedAt: clientNow()
+            });
+          });
+        } else {
+          const current = localDB.campaigns[campaignId];
+          if (!current || current.status !== "running") throw new Error("Campaign is not running.");
+          const pool = unique([...(current.participants || []), ...(current.votes || [])]);
+          current.status = "awaiting_prize";
+          current.winner = pool[Math.floor(Math.random() * pool.length)];
+          current.otp = otp();
+          current.approvals = [];
+          current.completedAt = clientNow();
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Winner selected. Prize OTP needed.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Complete failed.");
+      }
+    }
+
+    async function approveCampaign(campaignId) {
+      const input = $(`#camp-otp-${CSS.escape(campaignId)}`);
+      const code = input?.value.trim();
+      if (!code) {
+        toast("Enter campaign OTP.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const campaignRef = fx.doc(state.db, "campaigns", campaignId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(campaignRef);
+            if (!snap.exists()) throw new Error("Campaign not found.");
+            const campaign = snap.data();
+            if (campaign.status !== "awaiting_prize") throw new Error("Campaign is not waiting for prize.");
+            if (campaign.otp !== code) throw new Error("Wrong OTP.");
+            if (!eligibleApprovers(campaign).includes(state.handle)) throw new Error("You cannot approve this prize.");
+            const approvals = unique([...(campaign.approvals || []), state.handle]);
+            const ready = approvals.length >= approvalsNeeded(campaign);
+            const update = { approvals };
+            if (ready) {
+              const winnerRef = fx.doc(state.db, "members", campaign.winner);
+              const winnerSnap = await tx.get(winnerRef);
+              if (!winnerSnap.exists()) throw new Error("Winner handle not found.");
+              tx.update(winnerRef, { balance: Number(winnerSnap.data().balance || 0) + Number(campaign.prize || 0) });
+              update.status = "paid";
+              update.paidAt = clientNow();
+            }
+            tx.update(campaignRef, update);
+          });
+        } else {
+          const campaign = localDB.campaigns[campaignId];
+          if (!campaign || campaign.status !== "awaiting_prize") throw new Error("Campaign is not waiting for prize.");
+          if (campaign.otp !== code) throw new Error("Wrong OTP.");
+          if (!eligibleApprovers(campaign).includes(state.handle)) throw new Error("You cannot approve this prize.");
+          campaign.approvals = unique([...(campaign.approvals || []), state.handle]);
+          if (campaign.approvals.length >= approvalsNeeded(campaign)) {
+            localDB.members[campaign.winner].balance += Number(campaign.prize || 0);
+            campaign.status = "paid";
+            campaign.paidAt = clientNow();
+          }
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Prize approval saved.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Approval failed.");
+      }
+    }
+
+    async function deleteCampaign(campaignId) {
+      if (!state.isAdmin) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "campaigns", campaignId);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            if (!snap.exists()) return;
+            const campaign = snap.data();
+            if (campaign.creatorCharged && campaign.status !== "paid") {
+              const creatorRef = fx.doc(state.db, "members", campaign.creator);
+              const creatorSnap = await tx.get(creatorRef);
+              if (creatorSnap.exists()) tx.update(creatorRef, { balance: Number(creatorSnap.data().balance || 0) + Number(campaign.prize || 0) });
+            }
+            tx.update(ref, { status: "deleted", deletedAt: clientNow() });
+          });
+        } else {
+          const campaign = localDB.campaigns[campaignId];
+          if (campaign?.creatorCharged && campaign.status !== "paid" && localDB.members[campaign.creator]) {
+            localDB.members[campaign.creator].balance += Number(campaign.prize || 0);
+          }
+          if (campaign) campaign.status = "deleted";
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Campaign deleted.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Delete failed.");
+      }
+    }
+
+    async function adminGive(event) {
+      event.preventDefault();
+      if (!state.isAdmin) return;
+      const target = cleanHandle($("#adminTarget").value);
+      const amount = Math.floor(Number($("#adminAmount").value));
+      if (!target || amount < 1) {
+        toast("Add target and amount.");
+        return;
+      }
+      try {
+        await giveMoney(target, amount);
+        els.adminGiveForm.reset();
+        $("#adminAmount").value = "100";
+        toast("Money added.");
+      } catch (error) {
+        toast(error.message || "Admin give failed.");
+      }
+    }
+
+    async function giveMoney(target, amount) {
+      if (state.cloud) {
+        const fx = state.fx;
+        const ref = fx.doc(state.db, "members", target);
+        await fx.runTransaction(state.db, async (tx) => {
+          const snap = await tx.get(ref);
+          if (!snap.exists()) throw new Error("Member not found.");
+          tx.update(ref, { balance: Number(snap.data().balance || 0) + amount });
+        });
+      } else {
+        if (!localDB.members[target]) throw new Error("Member not found.");
+        localDB.members[target].balance += amount;
+        saveLocal();
+        pullLocalState();
+      }
+    }
+
+    async function adminGiveEveryone() {
+      if (!state.isAdmin) return;
+      const amount = Math.floor(Number($("#adminAmount").value));
+      if (amount < 1) {
+        toast("Add amount.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          await Promise.all(state.members.map((member) => (
+            state.fx.updateDoc(state.fx.doc(state.db, "members", member.handle || member.id), {
+              balance: state.fx.increment(amount)
+            })
+          )));
+        } else {
+          Object.values(localDB.members).forEach((member) => { member.balance += amount; });
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Everyone received money.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Give everyone failed.");
+      }
+    }
+
+    async function setBan(handle, banned) {
+      if (!state.isAdmin) return;
+      handle = cleanHandle(handle);
+      try {
+        if (state.cloud) {
+          await state.fx.updateDoc(state.fx.doc(state.db, "members", handle), { banned });
+        } else {
+          if (localDB.members[handle]) localDB.members[handle].banned = banned;
+          saveLocal();
+          pullLocalState();
+        }
+        toast(banned ? "Member banned." : "Member unbanned.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Ban update failed.");
+      }
+    }
+
+    function checkPopups() {
+      if (!state.handle) return;
+      state.ledger
+        .filter((tx) => tx.to === state.handle && tx.from !== state.handle)
+        .slice(0, 10)
+        .forEach((tx) => {
+          const seenId = `tx:${tx.id}`;
+          if (!state.seen.has(seenId)) {
+            state.seen.add(seenId);
+            saveSeen();
+            showReceived(tx);
+          }
+        });
+
+      state.orders
+        .filter((order) => order.seller === state.handle && order.status === "ordered")
+        .slice(0, 10)
+        .forEach((order) => {
+          const seenId = `order:${order.id}`;
+          if (!state.seen.has(seenId)) {
+            state.seen.add(seenId);
+            saveSeen();
+            showDeliverPopup(order);
+          }
+        });
+    }
+
+    function showPaymentSuccess(to, amount) {
+      playChime();
+      showModal(`
+        <div class="success-orbit">
+          <div class="coin one">M</div>
+          <div class="tick-ring"></div>
+          <div class="coin two">M</div>
+        </div>
+        <h2>Payment Successful</h2>
+        <p class="subtle" style="margin-top:8px;">${Number(amount)} Monopoly sent to @${esc(to)}</p>
+        <button class="primary" data-close-modal type="button" style="margin-top:18px;">Done</button>
+      `, true);
+    }
+
+    function showReceived(tx) {
+      playChime();
+      showModal(`
+        <div class="rose-wrap">
+          <div class="rose-stem"></div>
+          <div class="rose-flower">
+            <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+          </div>
+        </div>
+        <h2>You received</h2>
+        <p class="subtle" style="margin-top:8px;">${Number(tx.amount || 0)} Monopoly from @${esc(tx.from)}</p>
+        <button class="primary" data-close-modal type="button" style="margin-top:18px;">Nice</button>
+      `);
+    }
+
+    function showDeliverPopup(order) {
+      showModal(`
+        <h2>Deliver your product</h2>
+        <p class="subtle" style="margin-top:8px;">@${esc(order.buyer)} bought ${esc(order.title)}.</p>
+        <div class="inline-actions" style="justify-content:center;margin-top:18px;">
+          <button class="secondary" data-jump-orders data-close-modal type="button">Open orders</button>
+          <button class="ghost" data-close-modal type="button">Later</button>
+        </div>
+      `);
+    }
+
+    function showModal(html, autoClose = false) {
+      els.modalRoot.innerHTML = `
+        <div class="modal">
+          <div class="modal-card">${html}</div>
+        </div>
+      `;
+      if (autoClose) setTimeout(closeModal, 3600);
+    }
+
+    function closeModal() {
+      els.modalRoot.innerHTML = "";
+    }
+
+    function toast(message) {
+      const existing = $(".toast");
+      existing?.remove();
+      const node = document.createElement("div");
+      node.className = "toast";
+      node.textContent = message;
+      document.body.appendChild(node);
+      setTimeout(() => node.remove(), 3200);
+    }
+
+    function playChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audio = new AudioContext();
+        const gain = audio.createGain();
+        gain.gain.value = 0.06;
+        gain.connect(audio.destination);
+        [523.25, 659.25, 783.99].forEach((freq, index) => {
+          const osc = audio.createOscillator();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          osc.connect(gain);
+          const start = audio.currentTime + index * 0.11;
+          osc.start(start);
+          osc.stop(start + 0.16);
+        });
+      } catch (error) {}
+    }
+
+    function drawWheel(rotation = 0) {
+      const canvas = els.wheelCanvas;
+      const ctx = canvas.getContext("2d");
+      const entries = getWheelEntries();
+      const colors = ["#087f7b", "#1d4ed8", "#b7791f", "#be123c", "#14743f", "#6d5dfc"];
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const radius = canvas.width * 0.45;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotation);
+      const slice = (Math.PI * 2) / entries.length;
+      entries.forEach((entry, index) => {
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, radius, index * slice, (index + 1) * slice);
+        ctx.closePath();
+        ctx.fillStyle = colors[index % colors.length];
+        ctx.fill();
+        ctx.save();
+        ctx.rotate(index * slice + slice / 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "700 22px Arial";
+        ctx.textAlign = "right";
+        ctx.fillText(entry.slice(0, 18), radius - 22, 8);
+        ctx.restore();
+      });
+      ctx.restore();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - radius - 4);
+      ctx.lineTo(cx - 16, cy - radius - 36);
+      ctx.lineTo(cx + 16, cy - radius - 36);
+      ctx.closePath();
+      ctx.fillStyle = "#172033";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx, cy, 34, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.fillStyle = "#172033";
+      ctx.font = "900 20px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("LC", cx, cy + 7);
+    }
+
+    function getWheelEntries() {
+      return els.wheelEntries.value.split(/\n+/).map((entry) => entry.trim()).filter(Boolean).slice(0, 12);
+    }
+
+    function spinWheel() {
+      const entries = getWheelEntries();
+      if (!entries.length) {
+        toast("Add wheel entries.");
+        return;
+      }
+      const winnerIndex = Math.floor(Math.random() * entries.length);
+      const slice = (Math.PI * 2) / entries.length;
+      const target = Math.PI * 1.5 - (winnerIndex * slice + slice / 2);
+      const spins = Math.PI * 2 * 5;
+      const start = performance.now();
+      const duration = 2600;
+      function frame(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        drawWheel(eased * (spins + target));
+        if (t < 1) requestAnimationFrame(frame);
+        else {
+          els.wheelResult.textContent = entries[winnerIndex];
+          playChime();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    async function loadChess() {
+      try {
+        const mod = await import("https://cdn.jsdelivr.net/npm/chess.js@1.0.0/+esm");
+        state.ChessClass = mod.Chess;
+        state.chess = new state.ChessClass();
+        els.chessStatus.textContent = "White to move.";
+      } catch (error) {
+        state.ChessClass = null;
+        state.chess = makeSimpleChess();
+        els.chessStatus.textContent = "Simple board mode.";
+      }
+      renderChess();
+    }
+
+    function makeSimpleChess() {
+      return {
+        boardArray: [
+          ["r","n","b","q","k","b","n","r"],
+          ["p","p","p","p","p","p","p","p"],
+          ["","","","","","","",""],
+          ["","","","","","","",""],
+          ["","","","","","","",""],
+          ["","","","","","","",""],
+          ["P","P","P","P","P","P","P","P"],
+          ["R","N","B","Q","K","B","N","R"]
+        ],
+        board() {
+          return this.boardArray.map((row) => row.map((piece) => piece ? {
+            type: piece.toLowerCase(),
+            color: piece === piece.toUpperCase() ? "w" : "b"
+          } : null));
+        },
+        move({ from, to }) {
+          const fromPos = squareToPos(from);
+          const toPos = squareToPos(to);
+          const piece = this.boardArray[fromPos.y][fromPos.x];
+          if (!piece) return null;
+          this.boardArray[toPos.y][toPos.x] = piece;
+          this.boardArray[fromPos.y][fromPos.x] = "";
+          return { from, to };
+        },
+        turn() { return "w"; },
+        isGameOver() { return false; },
+        reset() {
+          Object.assign(this, makeSimpleChess());
+        }
+      };
+    }
+
+    function squareToPos(square) {
+      return {
+        x: square.charCodeAt(0) - 97,
+        y: 8 - Number(square[1])
+      };
+    }
+
+    function posToSquare(x, y) {
+      return `${String.fromCharCode(97 + x)}${8 - y}`;
+    }
+
+    function pieceText(piece) {
+      if (!piece) return "";
+      const letter = piece.type.toUpperCase();
+      return piece.color === "w" ? letter : letter.toLowerCase();
+    }
+
+    function renderChess() {
+      if (!state.chess) return;
+      const board = state.chess.board();
+      els.chessBoard.innerHTML = "";
+      board.forEach((row, y) => {
+        row.forEach((piece, x) => {
+          const square = posToSquare(x, y);
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = `square ${(x + y) % 2 ? "dark" : "light"} ${state.selectedSquare === square ? "selected" : ""}`;
+          cell.dataset.square = square;
+          cell.textContent = pieceText(piece);
+          els.chessBoard.appendChild(cell);
+        });
+      });
+      if (state.ChessClass && state.chess.isGameOver()) els.chessStatus.textContent = "Game over.";
+      else if (state.ChessClass) els.chessStatus.textContent = `${state.chess.turn() === "w" ? "White" : "Black"} to move.`;
+    }
+
+    function chessClick(square) {
+      if (!state.chess) return;
+      if (!state.selectedSquare) {
+        state.selectedSquare = square;
+        renderChess();
+        return;
+      }
+      try {
+        const move = state.chess.move({ from: state.selectedSquare, to: square, promotion: "q" });
+        if (!move) toast("Illegal move.");
+      } catch (error) {
+        toast("Illegal move.");
+      }
+      state.selectedSquare = null;
+      renderChess();
+    }
+
+    function resetChess() {
+      if (state.ChessClass) state.chess = new state.ChessClass();
+      else state.chess = makeSimpleChess();
+      state.selectedSquare = null;
+      renderChess();
+    }
+
+    const maze = [
+      "###########",
+      "#..#.....F#",
+      "#..#.###..#",
+      "#....#....#",
+      "####.#.####",
+      "#....#....#",
+      "#.#######.#",
+      "#.....#...#",
+      "###.#.#.###",
+      "#...#.....#",
+      "###########"
+    ];
+
+    function resetMaze() {
+      state.mazePlayers = [{ x: 1, y: 1 }, { x: 1, y: 2 }];
+      state.mazeFinished = false;
+      els.mazeStatus.textContent = "Player 1: WASD. Player 2: arrows.";
+      renderMaze();
+    }
+
+    function renderMaze() {
+      els.mazeBoard.innerHTML = "";
+      for (let y = 0; y < maze.length; y += 1) {
+        for (let x = 0; x < maze[y].length; x += 1) {
+          const cell = document.createElement("div");
+          const p1 = state.mazePlayers[0].x === x && state.mazePlayers[0].y === y;
+          const p2 = state.mazePlayers[1].x === x && state.mazePlayers[1].y === y;
+          cell.className = `maze-cell ${maze[y][x] === "#" ? "wall" : ""} ${maze[y][x] === "F" ? "finish" : ""} ${p1 ? "p1" : ""} ${p2 ? "p2" : ""}`;
+          cell.textContent = p1 ? "P1" : p2 ? "P2" : maze[y][x] === "F" ? "GO" : "";
+          els.mazeBoard.appendChild(cell);
+        }
+      }
+    }
+
+    function moveMaze(playerIndex, dx, dy) {
+      if (state.mazeFinished) return;
+      const player = state.mazePlayers[playerIndex];
+      const nx = player.x + dx;
+      const ny = player.y + dy;
+      if (!maze[ny] || maze[ny][nx] === "#") return;
+      player.x = nx;
+      player.y = ny;
+      if (maze[ny][nx] === "F") {
+        state.mazeFinished = true;
+        els.mazeStatus.textContent = `Player ${playerIndex + 1} wins.`;
+        playChime();
+      }
+      renderMaze();
+    }
+
+    function handleKey(event) {
+      const key = event.key.toLowerCase();
+      const map = {
+        w: [0, -1, 0],
+        a: [0, -1, 0],
+        s: [0, 0, 1],
+        d: [0, 1, 0],
+        arrowup: [1, 0, -1],
+        arrowleft: [1, -1, 0],
+        arrowdown: [1, 0, 1],
+        arrowright: [1, 1, 0]
+      };
+      if (key === "w") moveMaze(0, 0, -1);
+      else if (key === "a") moveMaze(0, -1, 0);
+      else if (key === "s") moveMaze(0, 0, 1);
+      else if (key === "d") moveMaze(0, 1, 0);
+      else if (key === "arrowup") moveMaze(1, 0, -1);
+      else if (key === "arrowleft") moveMaze(1, -1, 0);
+      else if (key === "arrowdown") moveMaze(1, 0, 1);
+      else if (key === "arrowright") moveMaze(1, 1, 0);
+      if (map[key]) event.preventDefault();
+    }
+
+    function setupEvents() {
+      els.loginForm.addEventListener("submit", login);
+      els.handleInput.addEventListener("input", scheduleHandleCheck);
+      els.logoutBtn.addEventListener("click", logout);
+      els.sendForm.addEventListener("submit", sendMoney);
+      els.productForm.addEventListener("submit", launchProduct);
+      els.campaignForm.addEventListener("submit", createCampaign);
+      els.adminGiveForm.addEventListener("submit", adminGive);
+      els.adminGiveAll.addEventListener("click", adminGiveEveryone);
+      els.spinWheelBtn.addEventListener("click", spinWheel);
+      els.wheelEntries.addEventListener("input", () => drawWheel());
+      els.resetChessBtn.addEventListener("click", resetChess);
+      els.resetMazeBtn.addEventListener("click", resetMaze);
+      document.addEventListener("keydown", handleKey);
+
+      els.productImageFile.addEventListener("change", () => {
+        const file = els.productImageFile.files?.[0];
+        if (!file) return;
+        if (file.size > 650000) {
+          els.productImageFile.value = "";
+          toast("Choose an image under 650 KB or use an image URL.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          state.selectedImageData = String(reader.result || "");
+          $("#productImage").value = "";
+          toast("Image attached.");
+        };
+        reader.readAsDataURL(file);
+      });
+
+      $$(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          state.activeTab = tab.dataset.tab;
+          renderTabs();
+          if (state.activeTab === "games") drawWheel();
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        const target = event.target.closest("button");
+        if (!target) return;
+        if (target.matches("[data-close-modal]")) closeModal();
+        if (target.matches("[data-jump-orders]")) {
+          state.activeTab = "orders";
+          renderTabs();
+        }
+        if (target.dataset.buy) buyProduct(target.dataset.buy);
+        if (target.dataset.deleteProduct) deleteProduct(target.dataset.deleteProduct);
+        if (target.dataset.orderStatus) updateOrderStatus(target.dataset.orderStatus, target.dataset.status);
+        if (target.dataset.confirmOrder) confirmOrder(target.dataset.confirmOrder);
+        if (target.dataset.refundOrder) refundOrder(target.dataset.refundOrder);
+        if (target.dataset.voteCampaign) voteCampaign(target.dataset.voteCampaign);
+        if (target.dataset.joinCampaign) joinCampaign(target.dataset.joinCampaign);
+        if (target.dataset.completeCampaign) completeCampaign(target.dataset.completeCampaign);
+        if (target.dataset.approveCampaign) approveCampaign(target.dataset.approveCampaign);
+        if (target.dataset.deleteCampaign) deleteCampaign(target.dataset.deleteCampaign);
+        if (target.dataset.ban) setBan(target.dataset.ban, target.dataset.banned === "true");
+        if (target.dataset.square) chessClick(target.dataset.square);
+        if (target.dataset.move) {
+          const pad = target.closest(".dpad");
+          const [dx, dy] = target.dataset.move.split(",").map(Number);
+          moveMaze(Number(pad.dataset.player), dx, dy);
+        }
+      });
+    }
+
+    function restoreSessionToLogin() {
+      const session = readJson(SESSION_KEY, null);
+      if (session?.handle) {
+        els.handleInput.value = session.handle;
+        if (session.isAdmin) els.adminKeyInput.placeholder = "Admin key required again";
+        scheduleHandleCheck();
+      }
+    }
+
+    setupEvents();
+    restoreSessionToLogin();
+    await connectFirebase();
+    drawWheel();
+  </script>
+</body>
+</html>
