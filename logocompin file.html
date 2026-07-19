@@ -961,6 +961,319 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* The raised controls and bottom dock keep the app playful without hiding its work flows. */
+    :root {
+      --lime: #58cc02;
+      --lime-dark: #46a302;
+      --sky: #1cb0f6;
+      --sky-dark: #168dcc;
+      --sun: #ffc800;
+      --sun-dark: #d9a900;
+      --glass: rgba(255, 255, 255, 0.76);
+    }
+
+    body {
+      background: #f7fbf4;
+    }
+
+    .primary,
+    .secondary,
+    .danger,
+    .ghost,
+    .tab {
+      border: 1px solid rgba(23, 32, 51, 0.10);
+      box-shadow: 0 4px 0 rgba(23, 32, 51, 0.18);
+      transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+    }
+
+    .primary {
+      background: var(--lime);
+      border-color: var(--lime-dark);
+      box-shadow: 0 4px 0 var(--lime-dark);
+    }
+
+    .secondary {
+      background: var(--sky);
+      color: #fff;
+      border-color: var(--sky-dark);
+      box-shadow: 0 4px 0 var(--sky-dark);
+    }
+
+    .danger {
+      background: #ff5d7a;
+      color: #fff;
+      border-color: #d83d5a;
+      box-shadow: 0 4px 0 #d83d5a;
+    }
+
+    .ghost {
+      background: #fff;
+      box-shadow: 0 4px 0 #d9e1ea;
+    }
+
+    .primary:active,
+    .secondary:active,
+    .danger:active,
+    .ghost:active,
+    .tab:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 rgba(23, 32, 51, 0.18);
+    }
+
+    button:disabled {
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .topbar {
+      background: rgba(247, 251, 244, 0.88);
+    }
+
+    .tabs-wrap {
+      display: none;
+    }
+
+    main {
+      padding-bottom: 118px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 45;
+      left: 50%;
+      bottom: 16px;
+      width: min(900px, calc(100vw - 28px));
+      transform: translateX(-50%);
+      padding: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.88);
+      border-radius: 999px;
+      background: var(--glass);
+      box-shadow: 0 16px 38px rgba(35, 65, 45, 0.20), inset 0 1px 0 #fff;
+      backdrop-filter: blur(18px) saturate(1.35);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .bottom-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bottom-nav-inner {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      min-width: max-content;
+    }
+
+    .bottom-nav .tab {
+      min-height: 44px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 13px;
+      color: #52616b;
+      background: transparent;
+      box-shadow: none;
+      font-size: 13px;
+    }
+
+    .bottom-nav .tab.active {
+      color: #fff;
+      background: var(--lime);
+      box-shadow: 0 3px 0 var(--lime-dark);
+    }
+
+    .bottom-nav .tab:active {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    .shop-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 18px;
+      padding: 20px;
+      border: 1px solid #cde9be;
+      border-radius: 8px;
+      background: #e9f9df;
+      margin-bottom: 16px;
+    }
+
+    .shop-banner h2 {
+      font-size: 22px;
+    }
+
+    .shop-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .shop-toolbar input {
+      border-width: 2px;
+    }
+
+    .cart-button {
+      min-width: 126px;
+    }
+
+    .item-card {
+      overflow: hidden;
+      border-color: #d6e1d2;
+      box-shadow: 0 4px 0 #d6e1d2;
+    }
+
+    .item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #d6e1d2;
+    }
+
+    .product-image {
+      background: #f3f7f1;
+    }
+
+    .product-image span {
+      background: var(--sun);
+      color: #684c00;
+    }
+
+    .add-cart {
+      background: var(--sun);
+      color: #664d00;
+      border-color: var(--sun-dark);
+      box-shadow: 0 4px 0 var(--sun-dark);
+    }
+
+    .order-card,
+    .campaign-card {
+      border-color: #d6e1d2;
+      box-shadow: 0 4px 0 #e3ebdf;
+    }
+
+    .quiz-hero {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+      overflow: hidden;
+      background-color: #e7f8db;
+      background-image: var(--quiz-wallpaper, none);
+      background-position: center;
+      background-size: cover;
+      border: 1px solid #c5e9b6;
+      border-radius: 8px;
+      box-shadow: 0 5px 0 #c5e9b6;
+    }
+
+    .quiz-hero > div {
+      max-width: 470px;
+      padding: 18px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 4px 0 rgba(53, 110, 42, 0.16);
+    }
+
+    .quiz-hero h2 {
+      font-size: 24px;
+    }
+
+    .quiz-timer {
+      margin: 10px 0 14px;
+      font-weight: 850;
+      color: #4a7525;
+    }
+
+    .modal {
+      background: rgba(78, 207, 20, 0.22);
+      backdrop-filter: blur(12px) saturate(1.2);
+    }
+
+    .modal-card {
+      border: 2px solid #a8dc8d;
+      box-shadow: 0 12px 0 rgba(61, 129, 44, 0.22), 0 24px 60px rgba(24, 61, 29, 0.22);
+    }
+
+    .payment-amount {
+      margin: 8px 0 0;
+      color: #3e9b15;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .received-stage {
+      position: relative;
+      width: 146px;
+      height: 116px;
+      margin: 0 auto 10px;
+      border-radius: 8px;
+      background: #ffe5eb;
+      overflow: hidden;
+      box-shadow: inset 0 -10px 0 #ffd4df;
+    }
+
+    .received-stage .rose-wrap {
+      transform: scale(0.9) translateY(8px);
+    }
+
+    .received-spark {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--sun);
+      transform: rotate(45deg);
+      animation: receivedSpark 1.2s ease-in-out infinite alternate;
+    }
+
+    .received-spark.one { left: 18px; top: 18px; }
+    .received-spark.two { right: 20px; top: 32px; animation-delay: 250ms; }
+    .received-spark.three { right: 46px; bottom: 12px; animation-delay: 500ms; }
+
+    .gift-stage {
+      width: 122px;
+      height: 118px;
+      position: relative;
+      margin: 0 auto 8px;
+      transform-style: preserve-3d;
+      animation: giftBounce 1.2s cubic-bezier(.2,.8,.2,1) infinite alternate;
+    }
+
+    .gift-box,
+    .gift-lid {
+      position: absolute;
+      left: 15px;
+      width: 92px;
+      border: 3px solid #d78b00;
+      background: var(--sun);
+      box-shadow: inset -10px -8px 0 rgba(208, 129, 0, 0.18);
+    }
+
+    .gift-box { bottom: 8px; height: 70px; }
+    .gift-lid { top: 24px; height: 28px; transform: translateZ(10px) rotateX(-10deg); }
+    .gift-ribbon { position: absolute; left: 55px; top: 10px; width: 12px; height: 98px; background: #ff5d7a; border: 2px solid #d83d5a; }
+    .gift-bow { position: absolute; left: 39px; top: 4px; width: 44px; height: 26px; border: 8px solid #ff5d7a; border-radius: 50%; }
+
+    @keyframes giftBounce {
+      from { transform: perspective(420px) rotateX(6deg) rotateY(-8deg) translateY(4px); }
+      to { transform: perspective(420px) rotateX(-8deg) rotateY(10deg) translateY(-7px); }
+    }
+
+    @keyframes receivedSpark {
+      from { transform: rotate(45deg) scale(.65); opacity: .55; }
+      to { transform: rotate(45deg) scale(1.15); opacity: 1; }
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 16px 14px 116px; }
+      .bottom-nav { bottom: 10px; width: calc(100vw - 16px); }
+      .bottom-nav-inner { justify-content: flex-start; }
+      .bottom-nav .tab { padding: 0 12px; }
+      .shop-banner { grid-template-columns: 1fr; }
+      .shop-toolbar { grid-template-columns: 1fr; }
+      .cart-button { width: 100%; }
+    }
   </style>
 </head>
 <body>
@@ -1003,16 +1316,6 @@
           </div>
           <button id="logoutBtn" class="ghost tiny" type="button">Logout</button>
         </div>
-      </div>
-      <div class="tabs-wrap">
-        <nav class="tabs" aria-label="App sections">
-          <button class="tab active" data-tab="pay" type="button">Pay</button>
-          <button class="tab" data-tab="market" type="button">Market</button>
-          <button class="tab" data-tab="orders" type="button">Orders and OTP</button>
-          <button class="tab" data-tab="campaigns" type="button">Campaigns</button>
-          <button class="tab" data-tab="games" type="button">Games</button>
-          <button id="adminTabButton" class="tab hidden" data-tab="admin" type="button">Admin</button>
-        </nav>
       </div>
     </header>
 
@@ -1059,16 +1362,36 @@
         </div>
       </section>
 
-      <section id="marketPanel" class="tab-panel">
-        <div class="grid two">
-          <div class="panel">
-            <div class="section-head">
-              <div>
-                <h2>Launch Product</h2>
-                <p>Create a shop item with image and price.</p>
-              </div>
+      <section id="shopPanel" class="tab-panel">
+        <div class="shop-banner">
+          <div>
+            <h2>LogoCompin Shop</h2>
+            <p class="subtle" style="margin-top:5px;">Browse community products, save them to your cart, then buy with Monopoly.</p>
+          </div>
+          <button id="viewCartBtn" class="ghost cart-button" type="button">Cart <span id="cartCount">0</span></button>
+        </div>
+        <div class="shop-toolbar">
+          <input id="shopSearch" placeholder="Search products and sellers">
+          <button class="secondary" data-tab-jump="launch" type="button">Launch product</button>
+        </div>
+        <div class="section-head">
+          <div>
+            <h2>Shop picks</h2>
+            <p id="productCount">Products will appear here.</p>
+          </div>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+      </section>
+
+      <section id="launchPanel" class="tab-panel">
+        <div class="panel" style="max-width:720px;margin:0 auto;">
+          <div class="section-head">
+            <div>
+              <h2>Launch Product</h2>
+              <p>Create your shop item with an image, price, and clear details.</p>
             </div>
-            <form id="productForm" class="form-grid">
+          </div>
+          <form id="productForm" class="form-grid">
               <label class="field">
                 <span>Product name</span>
                 <input id="productTitle" maxlength="70" placeholder="Notebook, sticker, toy" required>
@@ -1090,17 +1413,7 @@
                 <textarea id="productDetails" maxlength="240" placeholder="Short product detail"></textarea>
               </label>
               <button class="primary" type="submit">Launch product</button>
-            </form>
-          </div>
-          <div class="panel">
-            <div class="section-head">
-              <div>
-                <h2>Shop</h2>
-                <p id="productCount">Products will appear here.</p>
-              </div>
-            </div>
-            <div id="productGrid" class="product-grid"></div>
-          </div>
+          </form>
         </div>
       </section>
 
@@ -1110,7 +1423,7 @@
             <div class="section-head">
               <div>
                 <h2>My OTP</h2>
-                <p>Delivery and campaign prize codes.</p>
+                <p>Share your delivery OTP only after your item arrives.</p>
               </div>
             </div>
             <div id="otpList" class="order-list"></div>
@@ -1119,7 +1432,7 @@
             <div class="section-head">
               <div>
                 <h2>Buying</h2>
-                <p>Confirm delivery or refund before OTP.</p>
+                <p>Your seller verifies the OTP to deliver and collect payment.</p>
               </div>
             </div>
             <div id="buyingOrders" class="order-list"></div>
@@ -1128,7 +1441,7 @@
             <div class="section-head">
               <div>
                 <h2>Selling</h2>
-                <p>Move orders through delivery status.</p>
+                <p>Update delivery, then enter the buyer OTP to get paid.</p>
               </div>
             </div>
             <div id="sellingOrders" class="order-list"></div>
@@ -1142,7 +1455,7 @@
             <div class="section-head">
               <div>
                 <h2>Start Campaign</h2>
-                <p>Two votes are needed before it starts.</p>
+                <p>Two community votes open it. The first player to two winner votes gets paid by admin.</p>
               </div>
             </div>
             <form id="campaignForm" class="form-grid">
@@ -1169,6 +1482,17 @@
               </div>
             </div>
             <div id="campaignList" class="campaign-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="quizPanel" class="tab-panel">
+        <div id="quizHero" class="quiz-hero">
+          <div>
+            <h2 id="quizTitle">Sunday Quiz Reward</h2>
+            <p id="quizTheme" class="subtle" style="margin-top:6px;">Every Sunday, claim a 100 Monopoly surprise.</p>
+            <p id="quizTimer" class="quiz-timer">Checking reward time...</p>
+            <button id="claimQuizBtn" class="primary" type="button">Open weekly gift</button>
           </div>
         </div>
       </section>
@@ -1261,7 +1585,31 @@ Try Again
               <div class="inline-actions">
                 <button class="primary" type="submit">Give money</button>
                 <button id="adminGiveAll" class="secondary" type="button">Give everyone</button>
+                <button id="adminEraseAll" class="danger" type="button">Erase all history</button>
               </div>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Launch Quiz Reward</h2>
+                <p>Open a custom gift for everyone at any time.</p>
+              </div>
+            </div>
+            <form id="adminQuizForm" class="form-grid">
+              <label class="field">
+                <span>Theme</span>
+                <input id="adminQuizTheme" maxlength="60" value="Special Monopoly Quiz">
+              </label>
+              <label class="field">
+                <span>Wallpaper image URL</span>
+                <input id="adminQuizWallpaper" placeholder="https://example.com/wallpaper.jpg">
+              </label>
+              <label class="field">
+                <span>Winner amount</span>
+                <input id="adminQuizAmount" type="number" min="1" step="1" value="100">
+              </label>
+              <button class="primary" type="submit">Launch reward</button>
             </form>
           </div>
           <div class="panel">
@@ -1276,6 +1624,18 @@ Try Again
         </div>
       </section>
     </main>
+    <nav class="bottom-nav" aria-label="App sections">
+      <div class="bottom-nav-inner">
+        <button class="tab active" data-tab="pay" type="button">Pay</button>
+        <button class="tab" data-tab="shop" type="button">Shop</button>
+        <button class="tab" data-tab="launch" type="button">Launch</button>
+        <button class="tab" data-tab="orders" type="button">Orders</button>
+        <button class="tab" data-tab="campaigns" type="button">Campaigns</button>
+        <button class="tab" data-tab="quiz" type="button">Quiz</button>
+        <button class="tab" data-tab="games" type="button">Games</button>
+        <button id="adminTabButton" class="tab hidden" data-tab="admin" type="button">Admin</button>
+      </div>
+    </nav>
   </section>
 
   <div id="modalRoot" class="modal-root"></div>
@@ -1283,10 +1643,10 @@ Try Again
   <script type="module">
     const ADMIN_KEY = "Aryan*123456789";
     const START_BALANCE = 100;
-    const RESET_EVERY = 14 * 24 * 60 * 60 * 1000;
     const LOCAL_KEY = "logocompin-monopoly-v1";
     const SESSION_KEY = "logocompin-session-v1";
     const SEEN_KEY = "logocompin-seen-v1";
+    const CART_KEY = "logocompin-cart-v1";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBJOQxGsefiAEMrx9-8mZkCL8_49X2FVLE",
@@ -1321,6 +1681,9 @@ Try Again
       productImageFile: $("#productImageFile"),
       productGrid: $("#productGrid"),
       productCount: $("#productCount"),
+      shopSearch: $("#shopSearch"),
+      viewCartBtn: $("#viewCartBtn"),
+      cartCount: $("#cartCount"),
       otpList: $("#otpList"),
       buyingOrders: $("#buyingOrders"),
       sellingOrders: $("#sellingOrders"),
@@ -1330,8 +1693,15 @@ Try Again
       adminPanel: $("#adminPanel"),
       adminGiveForm: $("#adminGiveForm"),
       adminGiveAll: $("#adminGiveAll"),
+      adminEraseAll: $("#adminEraseAll"),
+      adminQuizForm: $("#adminQuizForm"),
       memberList: $("#memberList"),
       memberCount: $("#memberCount"),
+      quizHero: $("#quizHero"),
+      quizTitle: $("#quizTitle"),
+      quizTheme: $("#quizTheme"),
+      quizTimer: $("#quizTimer"),
+      claimQuizBtn: $("#claimQuizBtn"),
       modalRoot: $("#modalRoot"),
       wheelCanvas: $("#wheelCanvas"),
       wheelEntries: $("#wheelEntries"),
@@ -1358,6 +1728,9 @@ Try Again
       orders: [],
       campaigns: [],
       members: [],
+      quiz: null,
+      cart: readJson(CART_KEY, []),
+      shopQuery: "",
       seen: new Set(readJson(SEEN_KEY, [])),
       unsubs: [],
       selectedImageData: "",
@@ -1366,7 +1739,8 @@ Try Again
       ChessClass: null,
       selectedSquare: null,
       mazePlayers: [{ x: 1, y: 1 }, { x: 1, y: 2 }],
-      mazeFinished: false
+      mazeFinished: false,
+      quizTimerId: null
     };
 
     let localDB = readJson(LOCAL_KEY, {
@@ -1374,8 +1748,15 @@ Try Again
       ledger: {},
       products: {},
       orders: {},
-      campaigns: {}
+      campaigns: {},
+      weeklyQuiz: null
     });
+
+    localDB.members ||= {};
+    localDB.ledger ||= {};
+    localDB.products ||= {};
+    localDB.orders ||= {};
+    localDB.campaigns ||= {};
 
     function readJson(key, fallback) {
       try {
@@ -1513,13 +1894,8 @@ Try Again
         balance: isAdmin ? 999999999 : START_BALANCE,
         banned: false,
         createdAt: clientNow(),
-        lastReset: clientNow()
+        weeklyClaims: {}
       };
-    }
-
-    function shouldReset(member) {
-      const last = timeValue(member?.lastReset);
-      return !state.isAdmin && (!last || Date.now() - last >= RESET_EVERY);
     }
 
     async function getMember(handle) {
@@ -1547,17 +1923,11 @@ Try Again
             const member = makeMember(handle, state.isAdmin);
             await state.fx.setDoc(ref, {
               ...member,
-              createdAt: nowData(),
-              lastReset: clientNow()
+              createdAt: nowData()
             });
             return member;
           }
           const member = { id: snap.id, ...snap.data(), handle };
-          if (shouldReset(member)) {
-            await state.fx.updateDoc(ref, { balance: START_BALANCE, lastReset: clientNow() });
-            member.balance = START_BALANCE;
-            member.lastReset = clientNow();
-          }
           if (state.isAdmin) member.balance = 999999999;
           return member;
         } catch (error) {
@@ -1569,11 +1939,6 @@ Try Again
         saveLocal();
       }
       const member = localDB.members[handle];
-      if (shouldReset(member)) {
-        member.balance = START_BALANCE;
-        member.lastReset = clientNow();
-        saveLocal();
-      }
       if (state.isAdmin) member.balance = 999999999;
       return { id: handle, ...member };
     }
@@ -1653,6 +2018,11 @@ Try Again
         safeSnap()
       ));
 
+      state.unsubs.push(fx.onSnapshot(fx.doc(db, "appSettings", "weeklyQuiz"), (snap) => {
+        state.quiz = snap.exists() ? { id: snap.id, ...snap.data() } : null;
+        renderQuiz();
+      }, safeSnap()));
+
       if (state.isAdmin) {
         state.unsubs.push(fx.onSnapshot(
           fx.query(fx.collection(db, "members"), fx.limit(200)),
@@ -1690,6 +2060,7 @@ Try Again
         .map(([docId, data]) => ({ id: docId, ...data }))
         .filter((campaign) => campaign.status !== "deleted")
         .sort(sortNewest);
+      state.quiz = localDB.weeklyQuiz || null;
       state.members = Object.entries(localDB.members)
         .map(([docId, data]) => ({ id: docId, ...data }))
         .sort((a, b) => String(a.handle).localeCompare(String(b.handle)));
@@ -1707,6 +2078,7 @@ Try Again
       renderOrders();
       renderCampaigns();
       renderMembers();
+      renderQuiz();
       renderTabs();
       if (state.member?.banned && !state.isAdmin) {
         showNotice("This handle is banned by admin. Payments, buying, selling, and campaigns are locked.");
@@ -1752,13 +2124,17 @@ Try Again
     }
 
     function renderProducts() {
-      els.productCount.textContent = state.products.length ? `${state.products.length} live products` : "Products will appear here.";
-      if (!state.products.length) {
+      const query = state.shopQuery.trim().toLowerCase();
+      const visibleProducts = state.products.filter((product) => !query || [product.title, product.seller, product.details].join(" ").toLowerCase().includes(query));
+      els.productCount.textContent = state.products.length ? `${visibleProducts.length} of ${state.products.length} live products` : "Products will appear here.";
+      els.cartCount.textContent = String(state.cart.length);
+      if (!visibleProducts.length) {
         els.productGrid.innerHTML = `<div class="empty">No products launched.</div>`;
         return;
       }
-      els.productGrid.innerHTML = state.products.map((product) => {
+      els.productGrid.innerHTML = visibleProducts.map((product) => {
         const mine = product.seller === state.handle;
+        const inCart = state.cart.includes(product.id);
         return `
           <article class="item-card">
             <div class="product-image">${productImageHtml(product)}</div>
@@ -1770,13 +2146,59 @@ Try Again
               <span class="price-pill">${Number(product.price || 0)} M</span>
               <p class="subtle">${esc(product.details || "No details")}</p>
               <div class="inline-actions">
-                <button class="primary tiny" data-buy="${esc(product.id)}" ${mine ? "disabled" : ""} type="button">Buy</button>
+                <button class="add-cart tiny" data-add-cart="${esc(product.id)}" ${mine || inCart ? "disabled" : ""} type="button">${inCart ? "In cart" : "Add to cart"}</button>
+                <button class="primary tiny" data-buy="${esc(product.id)}" ${mine ? "disabled" : ""} type="button">Buy now</button>
                 ${state.isAdmin || mine ? `<button class="danger tiny" data-delete-product="${esc(product.id)}" type="button">Remove</button>` : ""}
               </div>
             </div>
           </article>
         `;
       }).join("");
+    }
+
+    function saveCart() {
+      writeJson(CART_KEY, state.cart);
+    }
+
+    function addToCart(productId) {
+      const product = state.products.find((item) => item.id === productId);
+      if (!product || product.seller === state.handle) return;
+      state.cart = unique([...state.cart, productId]);
+      saveCart();
+      renderProducts();
+      toast(`${product.title} added to cart.`);
+    }
+
+    function showCart() {
+      const products = state.products.filter((product) => state.cart.includes(product.id) && product.active !== false);
+      if (!products.length) {
+        showModal(`<h2>Your cart is empty</h2><p class="subtle" style="margin-top:8px;">Add a product from the Shop to keep it here.</p><button class="primary" data-close-modal type="button" style="margin-top:18px;">Back to shop</button>`);
+        return;
+      }
+      showModal(`
+        <h2>Your cart</h2>
+        <div class="order-list" style="margin-top:14px;">
+          ${products.map((product) => `
+            <article class="order-card">
+              <div class="order-top">
+                <div><strong>${esc(product.title)}</strong><span class="subtle">@${esc(product.seller)}</span></div>
+                <span class="price-pill">${Number(product.price || 0)} M</span>
+              </div>
+              <div class="inline-actions">
+                <button class="primary tiny" data-cart-buy="${esc(product.id)}" type="button">Buy now</button>
+                <button class="ghost tiny" data-remove-cart="${esc(product.id)}" type="button">Remove</button>
+              </div>
+            </article>
+          `).join("")}
+        </div>
+      `);
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter((idValue) => idValue !== productId);
+      saveCart();
+      renderProducts();
+      showCart();
     }
 
     function orderStatusLabel(status) {
@@ -1800,10 +2222,6 @@ Try Again
       const buying = state.orders.filter((order) => order.buyer === state.handle);
       const selling = state.orders.filter((order) => order.seller === state.handle);
       const otpOrders = buying.filter((order) => !["completed", "refunded"].includes(order.status));
-      const campaignOtps = state.campaigns.filter((campaign) => {
-        const eligible = eligibleApprovers(campaign);
-        return campaign.status === "awaiting_prize" && eligible.includes(state.handle) && !(campaign.approvals || []).includes(state.handle);
-      });
 
       els.otpList.innerHTML = [
         ...otpOrders.map((order) => `
@@ -1814,17 +2232,6 @@ Try Again
                 <span class="subtle">Delivery OTP for seller @${esc(order.seller)}</span>
               </div>
               <span class="otp-pill">${esc(order.otp)}</span>
-            </div>
-          </article>
-        `),
-        ...campaignOtps.map((campaign) => `
-          <article class="order-card">
-            <div class="order-top">
-              <div>
-                <strong>${esc(campaign.title)}</strong>
-                <span class="subtle">Prize approval OTP for @${esc(campaign.winner)}</span>
-              </div>
-              <span class="otp-pill">${esc(campaign.otp)}</span>
             </div>
           </article>
         `)
@@ -1846,10 +2253,7 @@ Try Again
             <span class="status-pill ${statusClass(order.status)}">${orderStatusLabel(order.status)}</span>
           </div>
           ${renderTimeline(order.status)}
-          <div class="form-grid two">
-            <input id="otp-${esc(order.id)}" placeholder="Delivery OTP" ${locked ? "disabled" : ""}>
-            <button class="secondary" data-confirm-order="${esc(order.id)}" ${locked ? "disabled" : ""} type="button">Confirm</button>
-          </div>
+          <p class="subtle" style="margin-top:12px;">Your OTP is above. Give it to the seller only when your product has arrived.</p>
           <div class="inline-actions">
             <button class="danger tiny" data-refund-order="${esc(order.id)}" ${locked ? "disabled" : ""} type="button">Refund me</button>
           </div>
@@ -1874,6 +2278,10 @@ Try Again
             <button class="ghost tiny" data-order-status="${esc(order.id)}" data-status="out_for_delivery" ${locked ? "disabled" : ""} type="button">Out for delivery</button>
             <button class="secondary tiny" data-order-status="${esc(order.id)}" data-status="waiting_otp" ${locked ? "disabled" : ""} type="button">Need OTP</button>
           </div>
+          <div class="form-grid two" style="margin-top:12px;">
+            <input id="seller-otp-${esc(order.id)}" placeholder="Enter buyer OTP" ${locked ? "disabled" : ""}>
+            <button class="primary" data-deliver-order="${esc(order.id)}" ${locked ? "disabled" : ""} type="button">Verify OTP and deliver</button>
+          </div>
         </article>
       `;
     }
@@ -1890,20 +2298,10 @@ Try Again
 
     function campaignStatusLabel(status) {
       return ({
-        voting: "Needs votes",
-        running: "Running",
-        awaiting_prize: "Prize OTP",
-        paid: "Prize paid"
+        voting: "Needs 2 votes",
+        running: "Vote winner",
+        paid: "Winner paid"
       })[status] || status || "Needs votes";
-    }
-
-    function eligibleApprovers(campaign) {
-      const pool = unique([...(campaign.votes || []), ...(campaign.participants || [])]);
-      return pool.filter((handle) => handle !== campaign.winner);
-    }
-
-    function approvalsNeeded(campaign) {
-      return Math.max(1, Math.min(2, eligibleApprovers(campaign).length));
     }
 
     function renderCampaigns() {
@@ -1917,8 +2315,9 @@ Try Again
         const participants = campaign.participants || [];
         const joined = participants.includes(state.handle);
         const voted = votes.includes(state.handle);
-        const canApprove = campaign.status === "awaiting_prize" && eligibleApprovers(campaign).includes(state.handle) && !(campaign.approvals || []).includes(state.handle);
-        const approvalCount = (campaign.approvals || []).length;
+        const winnerVotes = campaign.winnerVotes || {};
+        const hasWinnerVote = (campaign.winnerVoters || []).includes(state.handle);
+        const leader = Object.entries(winnerVotes).sort((a, b) => Number(b[1]) - Number(a[1]))[0];
         return `
           <article class="campaign-card">
             <div class="campaign-top">
@@ -1933,13 +2332,12 @@ Try Again
               <span class="${votes.length >= 1 ? "active" : ""}">Votes ${votes.length}/2</span>
               <span class="${participants.length ? "active" : ""}">Players ${participants.length}</span>
               ${campaign.winner ? `<span class="active">Winner @${esc(campaign.winner)}</span>` : ""}
-              ${campaign.status === "awaiting_prize" ? `<span>Approvals ${approvalCount}/${approvalsNeeded(campaign)}</span>` : ""}
+              ${campaign.status === "running" && leader ? `<span>Leading @${esc(leader[0])} ${Number(leader[1])}/2</span>` : ""}
             </div>
             <div class="inline-actions">
-              <button class="secondary tiny" data-vote-campaign="${esc(campaign.id)}" ${voted || campaign.status !== "voting" ? "disabled" : ""} type="button">Vote</button>
-              <button class="ghost tiny" data-join-campaign="${esc(campaign.id)}" ${joined || !["running", "awaiting_prize"].includes(campaign.status) ? "disabled" : ""} type="button">Join</button>
-              <button class="primary tiny" data-complete-campaign="${esc(campaign.id)}" ${campaign.status !== "running" || (!state.isAdmin && campaign.creator !== state.handle) ? "disabled" : ""} type="button">Complete</button>
-              ${canApprove ? `<input id="camp-otp-${esc(campaign.id)}" placeholder="Prize OTP" style="max-width:150px;"><button class="primary tiny" data-approve-campaign="${esc(campaign.id)}" type="button">Approve prize</button>` : ""}
+              <button class="secondary tiny" data-vote-campaign="${esc(campaign.id)}" ${voted || campaign.status !== "voting" ? "disabled" : ""} type="button">Open campaign</button>
+              <button class="ghost tiny" data-join-campaign="${esc(campaign.id)}" ${joined || campaign.status !== "running" ? "disabled" : ""} type="button">Join players</button>
+              <button class="primary tiny" data-open-winner-vote="${esc(campaign.id)}" ${!joined || hasWinnerVote || campaign.status !== "running" ? "disabled" : ""} type="button">Vote winner</button>
               ${state.isAdmin ? `<button class="danger tiny" data-delete-campaign="${esc(campaign.id)}" type="button">Delete</button>` : ""}
             </div>
           </article>
@@ -1998,6 +2396,7 @@ Try Again
       drawWheel();
       await loadChess();
       resetMaze();
+      startQuizTimer();
       renderAll();
     }
 
@@ -2205,6 +2604,9 @@ Try Again
           saveLocal();
           pullLocalState();
         }
+        state.cart = state.cart.filter((cartId) => cartId !== productId);
+        saveCart();
+        closeModal();
         toast("Order created. OTP is in Orders.");
         state.activeTab = "orders";
         renderTabs();
@@ -2254,8 +2656,8 @@ Try Again
       }
     }
 
-    async function confirmOrder(orderId) {
-      const input = $(`#otp-${CSS.escape(orderId)}`);
+    async function deliverOrder(orderId) {
+      const input = $(`#seller-otp-${CSS.escape(orderId)}`);
       const code = input?.value.trim();
       if (!code) {
         toast("Enter delivery OTP.");
@@ -2269,31 +2671,32 @@ Try Again
             const orderSnap = await tx.get(orderRef);
             if (!orderSnap.exists()) throw new Error("Order not found.");
             const order = orderSnap.data();
-            if (order.buyer !== state.handle) throw new Error("Only buyer can confirm.");
+            if (order.seller !== state.handle) throw new Error("Only seller can deliver.");
             if (order.otp !== code) throw new Error("Wrong OTP.");
             if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
             const sellerRef = fx.doc(state.db, "members", order.seller);
             const sellerSnap = await tx.get(sellerRef);
             if (!sellerSnap.exists()) throw new Error("Seller not found.");
             tx.update(sellerRef, { balance: Number(sellerSnap.data().balance || 0) + Number(order.price || 0) });
-            tx.update(orderRef, { status: "completed", paidToSeller: true, deliveredAt: clientNow() });
+            tx.update(orderRef, { status: "completed", paidToSeller: true, deliveredBy: state.handle, deliveredAt: clientNow() });
           });
         } else {
           const order = localDB.orders[orderId];
-          if (!order || order.buyer !== state.handle) throw new Error("Order not found.");
+          if (!order || order.seller !== state.handle) throw new Error("Order not found.");
           if (order.otp !== code) throw new Error("Wrong OTP.");
           if (["completed", "refunded"].includes(order.status)) throw new Error("Order already closed.");
           localDB.members[order.seller].balance += Number(order.price || 0);
           order.status = "completed";
           order.paidToSeller = true;
+          order.deliveredBy = state.handle;
           order.deliveredAt = clientNow();
           saveLocal();
           pullLocalState();
         }
-        toast("Delivery confirmed. Seller paid.");
+        toast("OTP verified. Order delivered and seller paid.");
       } catch (error) {
         if (state.cloud) switchOffline(error);
-        toast(error.message || "Could not confirm.");
+        toast(error.message || "Could not verify delivery OTP.");
       }
     }
 
@@ -2348,17 +2751,15 @@ Try Again
             const creatorSnap = await tx.get(creatorRef);
             const creator = creatorSnap.data();
             if (creator.banned && !state.isAdmin) throw new Error("Your handle is banned.");
-            if (!state.isAdmin && Number(creator.balance || 0) < prize) throw new Error("Not enough Monopoly.");
-            if (!state.isAdmin) tx.update(creatorRef, { balance: Number(creator.balance || 0) - prize });
             tx.set(campaignRef, {
               title,
               details,
               prize,
               creator: state.handle,
-              creatorCharged: !state.isAdmin,
               votes: [state.handle],
               participants: [state.handle],
-              approvals: [],
+              winnerVotes: {},
+              winnerVoters: [],
               status: "voting",
               createdAt: nowData(),
               clientCreatedAt: clientNow()
@@ -2366,17 +2767,16 @@ Try Again
           });
         } else {
           const creator = localDB.members[state.handle];
-          if (!state.isAdmin && creator.balance < prize) throw new Error("Not enough Monopoly.");
-          if (!state.isAdmin) creator.balance -= prize;
+          if (creator.banned && !state.isAdmin) throw new Error("Your handle is banned.");
           localDB.campaigns[id("campaign")] = {
             title,
             details,
             prize,
             creator: state.handle,
-            creatorCharged: !state.isAdmin,
             votes: [state.handle],
             participants: [state.handle],
-            approvals: [],
+            winnerVotes: {},
+            winnerVoters: [],
             status: "voting",
             createdAt: clientNow(),
             clientCreatedAt: clientNow()
@@ -2386,7 +2786,7 @@ Try Again
         }
         els.campaignForm.reset();
         $("#campaignPrize").value = "10";
-        toast("Campaign created.");
+        toast("Campaign created. One more vote opens it.");
       } catch (error) {
         if (state.cloud) switchOffline(error);
         toast(error.message || "Campaign failed.");
@@ -2434,12 +2834,12 @@ Try Again
             const snap = await tx.get(ref);
             if (!snap.exists()) throw new Error("Campaign not found.");
             const campaign = snap.data();
-            if (!["running", "awaiting_prize"].includes(campaign.status)) throw new Error("Campaign not open.");
+            if (campaign.status !== "running") throw new Error("Campaign is not open for players.");
             tx.update(ref, { participants: unique([...(campaign.participants || []), state.handle]) });
           });
         } else {
           const campaign = localDB.campaigns[campaignId];
-          if (!campaign || !["running", "awaiting_prize"].includes(campaign.status)) throw new Error("Campaign not open.");
+          if (!campaign || campaign.status !== "running") throw new Error("Campaign is not open for players.");
           campaign.participants = unique([...(campaign.participants || []), state.handle]);
           saveLocal();
           pullLocalState();
@@ -2451,96 +2851,93 @@ Try Again
       }
     }
 
-    async function completeCampaign(campaignId) {
+    function showWinnerVote(campaignId) {
       const campaign = state.campaigns.find((item) => item.id === campaignId);
-      if (!campaign || (!state.isAdmin && campaign.creator !== state.handle)) return;
-      try {
-        if (state.cloud) {
-          const fx = state.fx;
-          const ref = fx.doc(state.db, "campaigns", campaignId);
-          await fx.runTransaction(state.db, async (tx) => {
-            const snap = await tx.get(ref);
-            if (!snap.exists()) throw new Error("Campaign not found.");
-            const current = snap.data();
-            if (current.status !== "running") throw new Error("Campaign is not running.");
-            const pool = unique([...(current.participants || []), ...(current.votes || [])]);
-            const winner = pool[Math.floor(Math.random() * pool.length)];
-            tx.update(ref, {
-              status: "awaiting_prize",
-              winner,
-              otp: otp(),
-              approvals: [],
-              completedAt: clientNow()
-            });
-          });
-        } else {
-          const current = localDB.campaigns[campaignId];
-          if (!current || current.status !== "running") throw new Error("Campaign is not running.");
-          const pool = unique([...(current.participants || []), ...(current.votes || [])]);
-          current.status = "awaiting_prize";
-          current.winner = pool[Math.floor(Math.random() * pool.length)];
-          current.otp = otp();
-          current.approvals = [];
-          current.completedAt = clientNow();
-          saveLocal();
-          pullLocalState();
-        }
-        toast("Winner selected. Prize OTP needed.");
-      } catch (error) {
-        if (state.cloud) switchOffline(error);
-        toast(error.message || "Complete failed.");
-      }
+      if (!campaign || campaign.status !== "running") return;
+      const candidates = unique(campaign.participants || []);
+      showModal(`
+        <h2>Vote winner</h2>
+        <p class="subtle" style="margin-top:8px;">Choose a player. The first player to receive two votes wins ${Number(campaign.prize || 0)} Monopoly from the admin account.</p>
+        <div class="order-list" style="margin-top:16px;">
+          ${candidates.map((handle) => `
+            <button class="ghost" data-vote-winner="${esc(campaign.id)}" data-candidate="${esc(handle)}" type="button" style="width:100%;justify-content:space-between;">Vote for @${esc(handle)} <span>${Number((campaign.winnerVotes || {})[handle] || 0)}/2</span></button>
+          `).join("")}
+        </div>
+      `);
     }
 
-    async function approveCampaign(campaignId) {
-      const input = $(`#camp-otp-${CSS.escape(campaignId)}`);
-      const code = input?.value.trim();
-      if (!code) {
-        toast("Enter campaign OTP.");
-        return;
-      }
+    async function castWinnerVote(campaignId, candidate) {
+      if (!guardActive()) return;
       try {
         if (state.cloud) {
           const fx = state.fx;
           const campaignRef = fx.doc(state.db, "campaigns", campaignId);
+          const ledgerRef = fx.doc(fx.collection(state.db, "ledger"));
           await fx.runTransaction(state.db, async (tx) => {
             const snap = await tx.get(campaignRef);
             if (!snap.exists()) throw new Error("Campaign not found.");
             const campaign = snap.data();
-            if (campaign.status !== "awaiting_prize") throw new Error("Campaign is not waiting for prize.");
-            if (campaign.otp !== code) throw new Error("Wrong OTP.");
-            if (!eligibleApprovers(campaign).includes(state.handle)) throw new Error("You cannot approve this prize.");
-            const approvals = unique([...(campaign.approvals || []), state.handle]);
-            const ready = approvals.length >= approvalsNeeded(campaign);
-            const update = { approvals };
-            if (ready) {
-              const winnerRef = fx.doc(state.db, "members", campaign.winner);
+            const players = unique(campaign.participants || []);
+            if (campaign.status !== "running") throw new Error("Winner voting is closed.");
+            if (!players.includes(state.handle) || !players.includes(candidate)) throw new Error("Only campaign players can vote.");
+            if ((campaign.winnerVoters || []).includes(state.handle)) throw new Error("You already voted for a winner.");
+            const winnerVotes = { ...(campaign.winnerVotes || {}) };
+            winnerVotes[candidate] = Number(winnerVotes[candidate] || 0) + 1;
+            const winnerVoters = unique([...(campaign.winnerVoters || []), state.handle]);
+            const update = { winnerVotes, winnerVoters };
+            if (winnerVotes[candidate] >= 2) {
+              const winnerRef = fx.doc(state.db, "members", candidate);
               const winnerSnap = await tx.get(winnerRef);
               if (!winnerSnap.exists()) throw new Error("Winner handle not found.");
               tx.update(winnerRef, { balance: Number(winnerSnap.data().balance || 0) + Number(campaign.prize || 0) });
-              update.status = "paid";
-              update.paidAt = clientNow();
+              tx.set(ledgerRef, {
+                from: "admin",
+                to: candidate,
+                amount: Number(campaign.prize || 0),
+                note: `Campaign prize: ${campaign.title || "winner"}`,
+                type: "campaign_prize",
+                parties: unique(["admin", candidate]),
+                createdAt: nowData(),
+                clientCreatedAt: clientNow()
+              });
+              Object.assign(update, { status: "paid", winner: candidate, paidBy: "admin", paidAt: clientNow() });
             }
             tx.update(campaignRef, update);
           });
         } else {
           const campaign = localDB.campaigns[campaignId];
-          if (!campaign || campaign.status !== "awaiting_prize") throw new Error("Campaign is not waiting for prize.");
-          if (campaign.otp !== code) throw new Error("Wrong OTP.");
-          if (!eligibleApprovers(campaign).includes(state.handle)) throw new Error("You cannot approve this prize.");
-          campaign.approvals = unique([...(campaign.approvals || []), state.handle]);
-          if (campaign.approvals.length >= approvalsNeeded(campaign)) {
-            localDB.members[campaign.winner].balance += Number(campaign.prize || 0);
+          const players = unique(campaign?.participants || []);
+          if (!campaign || campaign.status !== "running") throw new Error("Winner voting is closed.");
+          if (!players.includes(state.handle) || !players.includes(candidate)) throw new Error("Only campaign players can vote.");
+          if ((campaign.winnerVoters || []).includes(state.handle)) throw new Error("You already voted for a winner.");
+          campaign.winnerVotes ||= {};
+          campaign.winnerVotes[candidate] = Number(campaign.winnerVotes[candidate] || 0) + 1;
+          campaign.winnerVoters = unique([...(campaign.winnerVoters || []), state.handle]);
+          if (campaign.winnerVotes[candidate] >= 2) {
+            localDB.members[candidate].balance += Number(campaign.prize || 0);
             campaign.status = "paid";
+            campaign.winner = candidate;
+            campaign.paidBy = "admin";
             campaign.paidAt = clientNow();
+            localDB.ledger[id("campaign_prize")] = {
+              from: "admin",
+              to: candidate,
+              amount: Number(campaign.prize || 0),
+              note: `Campaign prize: ${campaign.title || "winner"}`,
+              type: "campaign_prize",
+              parties: unique(["admin", candidate]),
+              createdAt: clientNow(),
+              clientCreatedAt: clientNow()
+            };
           }
           saveLocal();
           pullLocalState();
         }
-        toast("Prize approval saved.");
+        closeModal();
+        toast("Winner vote saved.");
       } catch (error) {
         if (state.cloud) switchOffline(error);
-        toast(error.message || "Approval failed.");
+        toast(error.message || "Winner vote failed.");
       }
     }
 
@@ -2553,19 +2950,10 @@ Try Again
           await fx.runTransaction(state.db, async (tx) => {
             const snap = await tx.get(ref);
             if (!snap.exists()) return;
-            const campaign = snap.data();
-            if (campaign.creatorCharged && campaign.status !== "paid") {
-              const creatorRef = fx.doc(state.db, "members", campaign.creator);
-              const creatorSnap = await tx.get(creatorRef);
-              if (creatorSnap.exists()) tx.update(creatorRef, { balance: Number(creatorSnap.data().balance || 0) + Number(campaign.prize || 0) });
-            }
             tx.update(ref, { status: "deleted", deletedAt: clientNow() });
           });
         } else {
           const campaign = localDB.campaigns[campaignId];
-          if (campaign?.creatorCharged && campaign.status !== "paid" && localDB.members[campaign.creator]) {
-            localDB.members[campaign.creator].balance += Number(campaign.prize || 0);
-          }
           if (campaign) campaign.status = "deleted";
           saveLocal();
           pullLocalState();
@@ -2657,6 +3045,209 @@ Try Again
       }
     }
 
+    function sundayKey() {
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() - date.getDay());
+      return `sunday-${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    function nextSunday() {
+      const date = new Date();
+      const days = date.getDay() === 0 ? 0 : 7 - date.getDay();
+      date.setDate(date.getDate() + days);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }
+
+    function timeUntil(date) {
+      const remaining = Math.max(0, date.getTime() - Date.now());
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      return days ? `${days}d ${hours}h` : `${hours}h ${minutes}m`;
+    }
+
+    function activeQuiz() {
+      if (state.quiz?.active) return state.quiz;
+      if (new Date().getDay() === 0) {
+        return {
+          id: sundayKey(),
+          amount: 100,
+          theme: "Sunday Monopoly Surprise",
+          wallpaper: "",
+          automatic: true
+        };
+      }
+      return null;
+    }
+
+    function safeQuizWallpaper(value) {
+      try {
+        const url = new URL(String(value || ""), location.href);
+        if (!["http:", "https:"].includes(url.protocol)) return "none";
+        return `url("${url.href.replace(/["\\]/g, "\\$&")}")`;
+      } catch (error) {
+        return "none";
+      }
+    }
+
+    function renderQuiz() {
+      if (!els.quizHero) return;
+      const quiz = activeQuiz();
+      const claimed = Boolean(quiz && state.member?.weeklyClaims?.[quiz.id]);
+      els.quizHero.style.setProperty("--quiz-wallpaper", safeQuizWallpaper(quiz?.wallpaper));
+      if (quiz) {
+        els.quizTitle.textContent = quiz.automatic ? "Sunday Quiz Reward" : "Live Admin Quiz Reward";
+        els.quizTheme.textContent = `${quiz.theme || "Monopoly surprise"} - ${Number(quiz.amount || 100)} Monopoly`;
+        els.quizTimer.textContent = claimed ? "Reward claimed for this round." : "Reward is available now.";
+        els.claimQuizBtn.disabled = claimed;
+        els.claimQuizBtn.textContent = claimed ? "Gift claimed" : "Open weekly gift";
+      } else {
+        els.quizTitle.textContent = "Sunday Quiz Reward";
+        els.quizTheme.textContent = "Every Sunday, claim a 100 Monopoly surprise.";
+        els.quizTimer.textContent = `Next reward in ${timeUntil(nextSunday())}`;
+        els.claimQuizBtn.disabled = true;
+        els.claimQuizBtn.textContent = "Available on Sunday";
+      }
+    }
+
+    function startQuizTimer() {
+      if (state.quizTimerId) return;
+      state.quizTimerId = setInterval(renderQuiz, 30000);
+    }
+
+    function showQuizGift(quiz) {
+      playRewardChime();
+      showModal(`
+        <div class="gift-stage"><div class="gift-bow"></div><div class="gift-lid"></div><div class="gift-box"></div><div class="gift-ribbon"></div></div>
+        <h2>Gift released!</h2>
+        <p class="payment-amount">+${Number(quiz.amount || 100)} M</p>
+        <p class="subtle" style="margin-top:8px;">${esc(quiz.theme || "Monopoly surprise")} is now in your wallet.</p>
+        <button class="primary" data-close-modal type="button" style="margin-top:18px;">Awesome</button>
+      `);
+    }
+
+    async function claimQuiz() {
+      const quiz = activeQuiz();
+      if (!quiz) {
+        toast("The next Sunday gift is not ready yet.");
+        return;
+      }
+      if (state.member?.weeklyClaims?.[quiz.id]) {
+        toast("You already claimed this reward.");
+        return;
+      }
+      const amount = Math.max(1, Math.floor(Number(quiz.amount || 100)));
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const memberRef = fx.doc(state.db, "members", state.handle);
+          const ledgerRef = fx.doc(fx.collection(state.db, "ledger"));
+          await fx.runTransaction(state.db, async (tx) => {
+            const memberSnap = await tx.get(memberRef);
+            if (!memberSnap.exists()) throw new Error("Member not found.");
+            const member = memberSnap.data();
+            const weeklyClaims = { ...(member.weeklyClaims || {}) };
+            if (weeklyClaims[quiz.id]) throw new Error("You already claimed this reward.");
+            weeklyClaims[quiz.id] = clientNow();
+            tx.update(memberRef, { balance: Number(member.balance || 0) + amount, weeklyClaims });
+            tx.set(ledgerRef, {
+              from: "admin",
+              to: state.handle,
+              amount,
+              note: quiz.theme || "Weekly Monopoly reward",
+              type: "quiz_reward",
+              parties: unique(["admin", state.handle]),
+              createdAt: nowData(),
+              clientCreatedAt: clientNow()
+            });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          member.weeklyClaims ||= {};
+          if (member.weeklyClaims[quiz.id]) throw new Error("You already claimed this reward.");
+          member.weeklyClaims[quiz.id] = clientNow();
+          member.balance += amount;
+          localDB.ledger[id("reward")] = {
+            from: "admin",
+            to: state.handle,
+            amount,
+            note: quiz.theme || "Weekly Monopoly reward",
+            type: "quiz_reward",
+            parties: unique(["admin", state.handle]),
+            createdAt: clientNow(),
+            clientCreatedAt: clientNow()
+          };
+          saveLocal();
+          pullLocalState();
+        }
+        showQuizGift({ ...quiz, amount });
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not claim the reward.");
+      }
+    }
+
+    async function launchQuiz(event) {
+      event.preventDefault();
+      if (!state.isAdmin) return;
+      const theme = $("#adminQuizTheme").value.trim().slice(0, 60) || "Special Monopoly Quiz";
+      const wallpaper = $("#adminQuizWallpaper").value.trim().slice(0, 500);
+      const amount = Math.floor(Number($("#adminQuizAmount").value));
+      if (amount < 1) {
+        toast("Add a valid quiz reward amount.");
+        return;
+      }
+      const quiz = { id: id("quiz"), active: true, theme, wallpaper, amount, launchedBy: state.handle, launchedAt: clientNow() };
+      try {
+        if (state.cloud) {
+          await state.fx.setDoc(state.fx.doc(state.db, "appSettings", "weeklyQuiz"), { ...quiz, launchedAt: nowData() });
+        } else {
+          localDB.weeklyQuiz = quiz;
+          saveLocal();
+          pullLocalState();
+        }
+        state.activeTab = "quiz";
+        renderTabs();
+        toast("Custom quiz reward launched.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Quiz launch failed.");
+      }
+    }
+
+    async function adminEraseAll() {
+      if (!state.isAdmin) return;
+      if (!window.confirm("Erase products, orders, campaigns, activity, and quiz rewards? Member balances will stay exactly as they are.")) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          for (const collectionName of ["ledger", "products", "orders", "campaigns"]) {
+            const snap = await fx.getDocs(fx.query(fx.collection(state.db, collectionName), fx.limit(400)));
+            const batch = fx.writeBatch(state.db);
+            snap.docs.forEach((doc) => batch.delete(doc.ref));
+            if (!snap.empty) await batch.commit();
+          }
+          await fx.deleteDoc(fx.doc(state.db, "appSettings", "weeklyQuiz"));
+        } else {
+          localDB.ledger = {};
+          localDB.products = {};
+          localDB.orders = {};
+          localDB.campaigns = {};
+          localDB.weeklyQuiz = null;
+          saveLocal();
+          pullLocalState();
+        }
+        state.cart = [];
+        saveCart();
+        toast("History erased. Member balances were preserved.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Could not erase all history.");
+      }
+    }
+
     function checkPopups() {
       if (!state.handle) return;
       state.ledger
@@ -2693,7 +3284,8 @@ Try Again
           <div class="coin two">M</div>
         </div>
         <h2>Payment Successful</h2>
-        <p class="subtle" style="margin-top:8px;">${Number(amount)} Monopoly sent to @${esc(to)}</p>
+        <p class="payment-amount">-${Number(amount)} M</p>
+        <p class="subtle" style="margin-top:8px;">Monopoly sent to @${esc(to)}</p>
         <button class="primary" data-close-modal type="button" style="margin-top:18px;">Done</button>
       `, true);
     }
@@ -2701,14 +3293,18 @@ Try Again
     function showReceived(tx) {
       playChime();
       showModal(`
-        <div class="rose-wrap">
-          <div class="rose-stem"></div>
-          <div class="rose-flower">
-            <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="received-stage">
+          <div class="received-spark one"></div><div class="received-spark two"></div><div class="received-spark three"></div>
+          <div class="rose-wrap">
+            <div class="rose-stem"></div>
+            <div class="rose-flower">
+              <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+            </div>
           </div>
         </div>
         <h2>You received</h2>
-        <p class="subtle" style="margin-top:8px;">${Number(tx.amount || 0)} Monopoly from @${esc(tx.from)}</p>
+        <p class="payment-amount">+${Number(tx.amount || 0)} M</p>
+        <p class="subtle" style="margin-top:8px;">From @${esc(tx.from)}</p>
         <button class="primary" data-close-modal type="button" style="margin-top:18px;">Nice</button>
       `);
     }
@@ -2762,6 +3358,25 @@ Try Again
           const start = audio.currentTime + index * 0.11;
           osc.start(start);
           osc.stop(start + 0.16);
+        });
+      } catch (error) {}
+    }
+
+    function playRewardChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audio = new AudioContext();
+        const gain = audio.createGain();
+        gain.gain.value = 0.07;
+        gain.connect(audio.destination);
+        [392, 523.25, 659.25, 783.99, 1046.5].forEach((freq, index) => {
+          const osc = audio.createOscillator();
+          osc.type = index === 4 ? "triangle" : "sine";
+          osc.frequency.value = freq;
+          osc.connect(gain);
+          const start = audio.currentTime + index * 0.08;
+          osc.start(start);
+          osc.stop(start + 0.22);
         });
       } catch (error) {}
     }
@@ -3033,6 +3648,14 @@ Try Again
       els.campaignForm.addEventListener("submit", createCampaign);
       els.adminGiveForm.addEventListener("submit", adminGive);
       els.adminGiveAll.addEventListener("click", adminGiveEveryone);
+      els.adminEraseAll.addEventListener("click", adminEraseAll);
+      els.adminQuizForm.addEventListener("submit", launchQuiz);
+      els.viewCartBtn.addEventListener("click", showCart);
+      els.claimQuizBtn.addEventListener("click", claimQuiz);
+      els.shopSearch.addEventListener("input", () => {
+        state.shopQuery = els.shopSearch.value;
+        renderProducts();
+      });
       els.spinWheelBtn.addEventListener("click", spinWheel);
       els.wheelEntries.addEventListener("input", () => drawWheel());
       els.resetChessBtn.addEventListener("click", resetChess);
@@ -3072,15 +3695,22 @@ Try Again
           state.activeTab = "orders";
           renderTabs();
         }
+        if (target.dataset.tabJump) {
+          state.activeTab = target.dataset.tabJump;
+          renderTabs();
+        }
         if (target.dataset.buy) buyProduct(target.dataset.buy);
+        if (target.dataset.addCart) addToCart(target.dataset.addCart);
+        if (target.dataset.cartBuy) buyProduct(target.dataset.cartBuy);
+        if (target.dataset.removeCart) removeFromCart(target.dataset.removeCart);
         if (target.dataset.deleteProduct) deleteProduct(target.dataset.deleteProduct);
         if (target.dataset.orderStatus) updateOrderStatus(target.dataset.orderStatus, target.dataset.status);
-        if (target.dataset.confirmOrder) confirmOrder(target.dataset.confirmOrder);
+        if (target.dataset.deliverOrder) deliverOrder(target.dataset.deliverOrder);
         if (target.dataset.refundOrder) refundOrder(target.dataset.refundOrder);
         if (target.dataset.voteCampaign) voteCampaign(target.dataset.voteCampaign);
         if (target.dataset.joinCampaign) joinCampaign(target.dataset.joinCampaign);
-        if (target.dataset.completeCampaign) completeCampaign(target.dataset.completeCampaign);
-        if (target.dataset.approveCampaign) approveCampaign(target.dataset.approveCampaign);
+        if (target.dataset.openWinnerVote) showWinnerVote(target.dataset.openWinnerVote);
+        if (target.dataset.voteWinner) castWinnerVote(target.dataset.voteWinner, target.dataset.candidate);
         if (target.dataset.deleteCampaign) deleteCampaign(target.dataset.deleteCampaign);
         if (target.dataset.ban) setBan(target.dataset.ban, target.dataset.banned === "true");
         if (target.dataset.square) chessClick(target.dataset.square);
