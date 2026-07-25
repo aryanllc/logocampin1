@@ -1196,6 +1196,42 @@
       box-shadow: 0 12px 0 rgba(61, 129, 44, 0.22), 0 24px 60px rgba(24, 61, 29, 0.22);
     }
 
+    .payment-screen {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      padding: 18px;
+      border-radius: 0;
+      background: rgba(224, 255, 214, .88);
+      box-shadow: inset 0 0 70px rgba(88, 204, 2, .22);
+      animation: paymentGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    .modal-fullscreen {
+      padding: 0;
+      background: rgba(78, 207, 20, .36);
+      backdrop-filter: blur(18px) saturate(1.25);
+    }
+
+    .modal-fullscreen-card {
+      width: 100vw;
+      max-width: none;
+      height: 100vh;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    @keyframes paymentGlow {
+      from { filter: saturate(1); }
+      to { filter: saturate(1.25) brightness(1.03); }
+    }
+
     .payment-amount {
       margin: 8px 0 0;
       color: #3e9b15;
@@ -1274,6 +1310,294 @@
       .shop-toolbar { grid-template-columns: 1fr; }
       .cart-button { width: 100%; }
     }
+
+    .demo-disclaimer {
+      margin-top: 20px;
+      padding: 8px 14px;
+      border: 1px solid rgba(190, 18, 60, 0.30);
+      border-radius: 999px;
+      color: #9f1239;
+      background: rgba(255, 225, 232, 0.70);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 4px 14px rgba(190,18,60,.10);
+      backdrop-filter: blur(12px);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .cashback-card,
+    .food-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px;
+      border: 1px solid #d6e1d2;
+      border-radius: 8px;
+      background: #f6fbf3;
+    }
+
+    .cashback-card strong,
+    .cashback-card span {
+      display: block;
+    }
+
+    .cashback-card span {
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    .scratch-card {
+      position: relative;
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      overflow: hidden;
+      border: 3px solid #d9a900;
+      border-radius: 8px;
+      background: repeating-linear-gradient(135deg, #ffc800 0 10px, #ffda4c 10px 20px);
+      color: #604900;
+      box-shadow: 0 7px 0 #d9a900;
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .scratch-card::after {
+      content: "SCRATCH";
+      position: absolute;
+      inset: 14px;
+      display: grid;
+      place-items: center;
+      border: 2px dashed rgba(96,73,0,.55);
+      border-radius: 6px;
+      background: rgba(255, 238, 146, .75);
+      transition: transform 380ms ease, opacity 380ms ease;
+    }
+
+    .scratch-card.revealed::after {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    .scratch-card .scratch-number {
+      font-size: 44px;
+      color: #9f1239;
+    }
+
+    .food-stat-row {
+      margin-bottom: 12px;
+    }
+
+    .food-stat-row strong {
+      color: #45a302;
+      font-size: 24px;
+    }
+
+    .food-card {
+      min-height: 130px;
+      padding: 14px;
+      border: 1px solid #d6e1d2;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 4px 0 #e3ebdf;
+    }
+
+    .food-card h3 {
+      font-size: 16px;
+    }
+
+    .food-card .food-art {
+      font-size: 34px;
+      margin-bottom: 5px;
+    }
+
+    .food-dinner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+    }
+
+    .dinner-food {
+      min-height: 112px;
+      padding: 12px;
+      border: 1px solid #b7dd9f;
+      border-radius: 8px;
+      background: #effbe8;
+      color: #376e25;
+      box-shadow: 0 4px 0 #b7dd9f;
+      touch-action: none;
+    }
+
+    .dinner-food .food-art {
+      display: block;
+      font-size: 34px;
+      margin-bottom: 4px;
+    }
+
+    .dinner-food.eating {
+      animation: eatPulse 1.2s ease-in-out infinite;
+      background: #d4f6bf;
+    }
+
+    .memory-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .memory-card {
+      min-height: 72px;
+      border-radius: 8px;
+      background: #dff7e9;
+      color: #14743f;
+      box-shadow: 0 4px 0 #acd9bb;
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .memory-card.revealed,
+    .memory-card.matched {
+      background: #ffc800;
+      color: #604900;
+    }
+
+    .tap-button {
+      width: 100%;
+      min-height: 100px;
+      margin-top: 16px;
+      font-size: 24px;
+    }
+
+    @keyframes eatPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    body.theme-dark {
+      --ink: #eef7eb;
+      --muted: #a7b8aa;
+      --line: #2f4634;
+      --panel: #18271d;
+      --paper: #0f1b13;
+      color: var(--ink);
+      background: #0f1b13;
+    }
+
+    body.theme-dark .topbar,
+    body.theme-dark .panel,
+    body.theme-dark .item-card,
+    body.theme-dark .login-panel,
+    body.theme-dark .order-card,
+    body.theme-dark .campaign-card,
+    body.theme-dark .food-card {
+      background: #18271d;
+      color: var(--ink);
+      border-color: #2f4634;
+    }
+
+    body.theme-dark input,
+    body.theme-dark textarea,
+    body.theme-dark select,
+    body.theme-dark .ghost {
+      background: #203226;
+      color: var(--ink);
+      border-color: #38523d;
+    }
+
+    body.theme-dark .subtle,
+    body.theme-dark .section-head p,
+    body.theme-dark .field span,
+    body.theme-dark .label {
+      color: #a7b8aa;
+    }
+
+    body.theme-dark .bottom-nav {
+      background: rgba(20, 36, 25, .78);
+      border-color: #38523d;
+    }
+
+    .trading-panel {
+      overflow: hidden;
+    }
+
+    .trading-closed {
+      margin-bottom: 14px;
+      padding: 14px;
+      border: 1px solid #f3d08b;
+      border-radius: 8px;
+      background: #fff3d6;
+      color: #71470d;
+      font-weight: 800;
+    }
+
+    body.theme-dark .trading-closed {
+      background: #3a2d16;
+      color: #ffd782;
+      border-color: #8f6d2d;
+    }
+
+    .trading-chart {
+      width: 100%;
+      height: 300px;
+      display: block;
+      border: 1px solid #cde9be;
+      border-radius: 8px;
+      background: #f3faef;
+    }
+
+    .trade-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .trade-stats span {
+      display: grid;
+      gap: 4px;
+      padding: 10px;
+      border: 1px solid #d6e1d2;
+      border-radius: 8px;
+      background: #f7fbf4;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .trade-stats strong {
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .trade-actions {
+      margin-top: 14px;
+    }
+
+    .trade-actions button {
+      flex: 1 1 160px;
+    }
+
+    body.theme-dark .trading-chart,
+    body.theme-dark .trade-stats span {
+      background: #203226;
+      border-color: #38523d;
+    }
+
+    body.theme-dark .trade-stats strong {
+      color: var(--ink);
+    }
+
+    @media (max-width: 560px) {
+      .trade-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .trading-chart {
+        height: 220px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1346,6 +1670,10 @@
                   <input id="sendNote" maxlength="60" placeholder="optional">
                 </label>
               </div>
+              <label class="field">
+                <span>Payment PIN</span>
+                <input id="sendPin" type="password" inputmode="numeric" maxlength="6" placeholder="Set it in Settings" required>
+              </label>
               <button class="primary" type="submit">Send now</button>
             </form>
           </div>
@@ -1497,6 +1825,158 @@
         </div>
       </section>
 
+      <section id="foodPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Virtual Food</h2>
+                <p>Buy ingredients and food for 2 to 8 Monopoly.</p>
+              </div>
+            </div>
+            <div id="foodShop" class="product-grid"></div>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Gas Station</h2>
+                <p>Buy virtual gas, then cook one food item.</p>
+              </div>
+            </div>
+            <div class="food-stat-row"><span>Gas</span><strong id="gasCount">0</strong></div>
+            <button id="buyGasBtn" class="secondary" type="button">Buy gas for 2 M</button>
+            <div id="kitchenList" class="order-list" style="margin-top:14px;"></div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:16px;">
+          <div class="section-head">
+            <div>
+              <h2>Eat Dinner</h2>
+              <p>Press and hold a cooked meal to eat it and earn up to 4 Monopoly.</p>
+            </div>
+          </div>
+          <div id="dinnerList" class="food-dinner-grid"></div>
+        </div>
+      </section>
+
+      <section id="tradingPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel trading-panel">
+            <div id="tradingClosedBanner" class="trading-closed hidden">Trading is paused by admin. Mock Trade is still available.</div>
+            <div class="section-head">
+              <div>
+                <h2>Trading</h2>
+                <p>Buy or sell a simulated position, then close it to settle Monopoly.</p>
+              </div>
+              <span id="tradePrice" class="price-pill">100.00</span>
+            </div>
+            <canvas id="tradeCanvas" class="trading-chart" width="760" height="300"></canvas>
+            <div class="trade-stats">
+              <span>Credits <strong id="tradeCredits">0</strong></span>
+              <span>Open <strong id="tradePosition">None</strong></span>
+              <span>Trade P/L <strong id="tradeProfitLoss">0 M</strong></span>
+            </div>
+            <div class="inline-actions trade-actions">
+              <button id="buyTradeBtn" class="primary" type="button">Buy position</button>
+              <button id="sellTradeBtn" class="secondary" type="button">Sell position</button>
+              <button id="closeTradeBtn" class="danger" type="button">Close position</button>
+            </div>
+            <p id="tradeStatus" class="subtle" style="margin-top:12px;">Buy Trading Credits to begin. Profit is capped at +8 M and loss at -2 M.</p>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Trading Credits</h2>
+                <p>Each credit costs 3 Monopoly and opens one position.</p>
+              </div>
+            </div>
+            <form id="tradeCreditForm" class="form-grid">
+              <label class="field">
+                <span>Credits to buy</span>
+                <input id="tradeCreditAmount" type="number" min="1" max="50" step="1" value="1" required>
+              </label>
+              <button class="primary" type="submit">Buy credits for 3 M each</button>
+            </form>
+            <div class="cashback-card" style="margin-top:16px;">
+              <div><strong>Risk guard</strong><span class="subtle">One open position at a time. Close settles the capped result into Monopoly.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="mockTradePanel" class="tab-panel">
+        <div class="panel trading-panel">
+          <div class="section-head">
+            <div>
+              <h2>Mock Trade</h2>
+              <p>Practice with virtual money only. This wallet is separate from Monopoly.</p>
+            </div>
+            <span id="mockPrice" class="price-pill">100.00</span>
+          </div>
+          <canvas id="mockTradeCanvas" class="trading-chart" width="1000" height="320"></canvas>
+          <div class="trade-stats">
+            <span>Virtual wallet <strong id="mockBalance">1,000 V</strong></span>
+            <span>Open <strong id="mockPosition">None</strong></span>
+            <span>Virtual P/L <strong id="mockProfitLoss">0 V</strong></span>
+          </div>
+          <div class="inline-actions trade-actions">
+            <button id="mockBuyBtn" class="primary" type="button">Buy mock position</button>
+            <button id="mockSellBtn" class="secondary" type="button">Sell mock position</button>
+            <button id="mockCloseBtn" class="danger" type="button">Close mock position</button>
+          </div>
+          <p id="mockTradeStatus" class="subtle" style="margin-top:12px;">Start with 1,000 virtual money. No Monopoly is used here.</p>
+        </div>
+      </section>
+
+      <section id="settingsPanel" class="tab-panel">
+        <div class="grid two">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Payment PIN</h2>
+                <p>Your PIN is required before sending Monopoly.</p>
+              </div>
+            </div>
+            <form id="pinForm" class="form-grid">
+              <label class="field">
+                <span>New PIN</span>
+                <input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="4 to 6 digits" required>
+              </label>
+              <label class="field">
+                <span>Confirm PIN</span>
+                <input id="pinConfirm" type="password" inputmode="numeric" maxlength="6" placeholder="Repeat PIN" required>
+              </label>
+              <button class="primary" type="submit">Save PIN</button>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Appearance</h2>
+                <p>Choose a light or dark liquid-glass theme.</p>
+              </div>
+            </div>
+            <label class="field">
+              <span>Theme</span>
+              <select id="themeSelect">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+              </select>
+            </label>
+            <div class="cashback-card" style="margin-top:16px;">
+              <div><strong>Cashback gifts</strong><span id="cashbackStatus" class="subtle">Send 10 Monopoly to unlock a scratch box.</span></div>
+              <button id="cashbackBtn" class="secondary tiny" type="button">Open gift box</button>
+            </div>
+            <div class="cashback-card" style="margin-top:12px;">
+              <div><strong>Trading wallet</strong><span id="settingsTradingStatus" class="subtle">0 credits · 0 M profit/loss</span></div>
+            </div>
+            <div class="cashback-card" style="margin-top:12px;">
+              <div><strong>Mock wallet</strong><span id="settingsMockStatus" class="subtle">1,000 V · 0 V profit/loss</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="gamesPanel" class="tab-panel">
         <div class="game-grid">
           <div class="panel">
@@ -1561,6 +2041,28 @@ Try Again
               </div>
             </div>
           </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Memory Match</h2>
+                <p id="memoryStatus">Find all three pairs.</p>
+              </div>
+              <button id="resetMemoryBtn" class="ghost tiny" type="button">New game</button>
+            </div>
+            <div id="memoryBoard" class="memory-board"></div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Quick Tap</h2>
+                <p id="tapStatus">Start a 10-second reaction round.</p>
+              </div>
+            </div>
+            <button id="startTapBtn" class="secondary" type="button">Start round</button>
+            <button id="tapButton" class="primary tap-button" type="button" disabled>Tap</button>
+          </div>
         </div>
       </section>
 
@@ -1588,6 +2090,15 @@ Try Again
                 <button id="adminEraseAll" class="danger" type="button">Erase all history</button>
               </div>
             </form>
+          </div>
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <h2>Trading Control</h2>
+                <p id="adminTradingStatus">Trading is enabled for all members.</p>
+              </div>
+            </div>
+            <button id="adminTradingToggle" class="danger" type="button">Stop Trading for Everyone</button>
           </div>
           <div class="panel">
             <div class="section-head">
@@ -1631,8 +2142,12 @@ Try Again
         <button class="tab" data-tab="launch" type="button">Launch</button>
         <button class="tab" data-tab="orders" type="button">Orders</button>
         <button class="tab" data-tab="campaigns" type="button">Campaigns</button>
+        <button class="tab" data-tab="food" type="button">Food</button>
+        <button class="tab" data-tab="trading" type="button">Trading</button>
+        <button class="tab" data-tab="mockTrade" type="button">Mock Trade</button>
         <button class="tab" data-tab="quiz" type="button">Quiz</button>
         <button class="tab" data-tab="games" type="button">Games</button>
+        <button class="tab" data-tab="settings" type="button">Settings</button>
         <button id="adminTabButton" class="tab hidden" data-tab="admin" type="button">Admin</button>
       </div>
     </nav>
@@ -1675,6 +2190,13 @@ Try Again
       adminTabButton: $("#adminTabButton"),
       systemNotice: $("#systemNotice"),
       sendForm: $("#sendForm"),
+      pinForm: $("#pinForm"),
+      pinInput: $("#pinInput"),
+      pinConfirm: $("#pinConfirm"),
+      themeSelect: $("#themeSelect"),
+      sendPin: $("#sendPin"),
+      cashbackStatus: $("#cashbackStatus"),
+      cashbackBtn: $("#cashbackBtn"),
       activityList: $("#activityList"),
       activityCount: $("#activityCount"),
       productForm: $("#productForm"),
@@ -1694,6 +2216,8 @@ Try Again
       adminGiveForm: $("#adminGiveForm"),
       adminGiveAll: $("#adminGiveAll"),
       adminEraseAll: $("#adminEraseAll"),
+      adminTradingToggle: $("#adminTradingToggle"),
+      adminTradingStatus: $("#adminTradingStatus"),
       adminQuizForm: $("#adminQuizForm"),
       memberList: $("#memberList"),
       memberCount: $("#memberCount"),
@@ -1702,6 +2226,40 @@ Try Again
       quizTheme: $("#quizTheme"),
       quizTimer: $("#quizTimer"),
       claimQuizBtn: $("#claimQuizBtn"),
+      foodShop: $("#foodShop"),
+      gasCount: $("#gasCount"),
+      buyGasBtn: $("#buyGasBtn"),
+      kitchenList: $("#kitchenList"),
+      dinnerList: $("#dinnerList"),
+      tradeCanvas: $("#tradeCanvas"),
+      tradePrice: $("#tradePrice"),
+      tradeCredits: $("#tradeCredits"),
+      tradePosition: $("#tradePosition"),
+      tradeProfitLoss: $("#tradeProfitLoss"),
+      buyTradeBtn: $("#buyTradeBtn"),
+      sellTradeBtn: $("#sellTradeBtn"),
+      closeTradeBtn: $("#closeTradeBtn"),
+      tradeStatus: $("#tradeStatus"),
+      tradingClosedBanner: $("#tradingClosedBanner"),
+      tradeCreditForm: $("#tradeCreditForm"),
+      tradeCreditAmount: $("#tradeCreditAmount"),
+      mockTradeCanvas: $("#mockTradeCanvas"),
+      mockPrice: $("#mockPrice"),
+      mockBalance: $("#mockBalance"),
+      mockPosition: $("#mockPosition"),
+      mockProfitLoss: $("#mockProfitLoss"),
+      mockBuyBtn: $("#mockBuyBtn"),
+      mockSellBtn: $("#mockSellBtn"),
+      mockCloseBtn: $("#mockCloseBtn"),
+      mockTradeStatus: $("#mockTradeStatus"),
+      settingsTradingStatus: $("#settingsTradingStatus"),
+      settingsMockStatus: $("#settingsMockStatus"),
+      memoryBoard: $("#memoryBoard"),
+      memoryStatus: $("#memoryStatus"),
+      resetMemoryBtn: $("#resetMemoryBtn"),
+      startTapBtn: $("#startTapBtn"),
+      tapButton: $("#tapButton"),
+      tapStatus: $("#tapStatus"),
       modalRoot: $("#modalRoot"),
       wheelCanvas: $("#wheelCanvas"),
       wheelEntries: $("#wheelEntries"),
@@ -1729,6 +2287,7 @@ Try Again
       campaigns: [],
       members: [],
       quiz: null,
+      tradingEnabled: true,
       cart: readJson(CART_KEY, []),
       shopQuery: "",
       seen: new Set(readJson(SEEN_KEY, [])),
@@ -1740,7 +2299,16 @@ Try Again
       selectedSquare: null,
       mazePlayers: [{ x: 1, y: 1 }, { x: 1, y: 2 }],
       mazeFinished: false,
-      quizTimerId: null
+      quizTimerId: null,
+      memory: { cards: [], flipped: [], matched: [] },
+      memoryTimer: null,
+      tap: { active: false, score: 0, seconds: 0, timer: null },
+      eatTimer: null,
+      marketSeries: [],
+      marketPrice: 100,
+      marketTimer: null,
+      tradePosition: null,
+      mockPosition: null
     };
 
     let localDB = readJson(LOCAL_KEY, {
@@ -1749,7 +2317,8 @@ Try Again
       products: {},
       orders: {},
       campaigns: {},
-      weeklyQuiz: null
+      weeklyQuiz: null,
+      tradingEnabled: true
     });
 
     localDB.members ||= {};
@@ -1757,6 +2326,7 @@ Try Again
     localDB.products ||= {};
     localDB.orders ||= {};
     localDB.campaigns ||= {};
+    if (typeof localDB.tradingEnabled !== "boolean") localDB.tradingEnabled = true;
 
     function readJson(key, fallback) {
       try {
@@ -1894,7 +2464,18 @@ Try Again
         balance: isAdmin ? 999999999 : START_BALANCE,
         banned: false,
         createdAt: clientNow(),
-        weeklyClaims: {}
+        weeklyClaims: {},
+        pin: "",
+        paymentVolume: 0,
+        cashbackBoxes: 0,
+        foodInventory: {},
+        cookedFood: [],
+        gas: 0,
+        theme: "light",
+        tradeCredits: 0,
+        tradeProfitLoss: 0,
+        mockBalance: 1000,
+        mockProfitLoss: 0
       };
     }
 
@@ -2023,6 +2604,12 @@ Try Again
         renderQuiz();
       }, safeSnap()));
 
+      state.unsubs.push(fx.onSnapshot(fx.doc(db, "appSettings", "trading"), (snap) => {
+        state.tradingEnabled = !snap.exists() || snap.data().enabled !== false;
+        renderTrading();
+        renderAdminTrading();
+      }, safeSnap()));
+
       if (state.isAdmin) {
         state.unsubs.push(fx.onSnapshot(
           fx.query(fx.collection(db, "members"), fx.limit(200)),
@@ -2061,6 +2648,7 @@ Try Again
         .filter((campaign) => campaign.status !== "deleted")
         .sort(sortNewest);
       state.quiz = localDB.weeklyQuiz || null;
+      state.tradingEnabled = localDB.tradingEnabled !== false;
       state.members = Object.entries(localDB.members)
         .map(([docId, data]) => ({ id: docId, ...data }))
         .sort((a, b) => String(a.handle).localeCompare(String(b.handle)));
@@ -2079,6 +2667,12 @@ Try Again
       renderCampaigns();
       renderMembers();
       renderQuiz();
+      renderSettings();
+      renderFood();
+      renderTrading();
+      renderAdminTrading();
+      renderMockTrading();
+      renderMemory();
       renderTabs();
       if (state.member?.banned && !state.isAdmin) {
         showNotice("This handle is banned by admin. Payments, buying, selling, and campaigns are locked.");
@@ -2091,6 +2685,586 @@ Try Again
       $$(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === state.activeTab));
       $$(".tab-panel").forEach((panel) => panel.classList.remove("active"));
       $(`#${state.activeTab}Panel`)?.classList.add("active");
+    }
+
+    const FOOD_MENU = [
+      { id: "burger", title: "Burger", art: "B", price: 4, reward: 2 },
+      { id: "pizza", title: "Pizza", art: "P", price: 8, reward: 4 },
+      { id: "noodles", title: "Noodles", art: "N", price: 5, reward: 3 },
+      { id: "sandwich", title: "Sandwich", art: "S", price: 2, reward: 1 }
+    ];
+
+    function foodById(foodId) {
+      return FOOD_MENU.find((food) => food.id === foodId) || FOOD_MENU[0];
+    }
+
+    function applyTheme() {
+      document.body.classList.toggle("theme-dark", state.member?.theme === "dark");
+      if (els.themeSelect && state.member) els.themeSelect.value = state.member.theme || "light";
+    }
+
+    function renderSettings() {
+      if (!state.member) return;
+      const boxes = Number(state.member.cashbackBoxes || 0);
+      const sent = Number(state.member.paymentVolume || 0);
+      const progress = sent % 10;
+      els.cashbackStatus.textContent = boxes ? `${boxes} scratch gift${boxes === 1 ? "" : "s"} ready. ${progress}/10 toward the next one.` : `${progress}/10 Monopoly sent toward your next scratch box.`;
+      els.cashbackBtn.disabled = boxes < 1;
+      els.cashbackBtn.textContent = boxes ? `Open gift box (${boxes})` : "No gift box yet";
+      els.sendPin.placeholder = state.member.pin ? "Enter your payment PIN" : "Set it in Settings";
+      const tradePnl = Number(state.member.tradeProfitLoss || 0);
+      const mockPnl = Number(state.member.mockProfitLoss || 0);
+      els.settingsTradingStatus.textContent = `${Number(state.member.tradeCredits || 0)} credits · ${tradePnl >= 0 ? "+" : ""}${tradePnl} M profit/loss`;
+      els.settingsMockStatus.textContent = `${Number(state.member.mockBalance || 1000).toLocaleString()} V · ${mockPnl >= 0 ? "+" : ""}${mockPnl} V profit/loss`;
+      applyTheme();
+    }
+
+    function pnlText(value, unit) {
+      const number = Number(value || 0);
+      return `${number >= 0 ? "+" : ""}${number} ${unit}`;
+    }
+
+    function drawMarketGraph(canvas, series, position) {
+      if (!canvas || !series.length) return;
+      const ctx = canvas.getContext("2d");
+      const width = canvas.width;
+      const height = canvas.height;
+      const min = Math.min(...series) - 3;
+      const max = Math.max(...series) + 3;
+      const range = Math.max(1, max - min);
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--panel") || "#ffffff";
+      ctx.fillRect(0, 0, width, height);
+      ctx.strokeStyle = "rgba(102, 140, 106, .18)";
+      ctx.lineWidth = 1;
+      for (let row = 1; row < 5; row += 1) {
+        const y = row * height / 5;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      series.forEach((value, index) => {
+        const x = index * width / Math.max(1, series.length - 1);
+        const y = height - ((value - min) / range) * height;
+        if (index === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = position?.side === "sell" ? "#1d4ed8" : "#58cc02";
+      ctx.lineWidth = 5;
+      ctx.lineJoin = "round";
+      ctx.stroke();
+      const last = series[series.length - 1];
+      const lastX = width;
+      const lastY = height - ((last - min) / range) * height;
+      ctx.fillStyle = position?.side === "sell" ? "#1d4ed8" : "#58cc02";
+      ctx.beginPath();
+      ctx.arc(lastX - 4, lastY, 7, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function renderTrading() {
+      if (!state.member) return;
+      const enabled = state.tradingEnabled !== false;
+      const price = Number(state.marketPrice || 100);
+      const position = state.tradePosition;
+      els.tradePrice.textContent = price.toFixed(2);
+      els.tradeCredits.textContent = String(Number(state.member.tradeCredits || 0));
+      els.tradePosition.textContent = position ? `${position.side.toUpperCase()} @ ${position.entry.toFixed(2)}` : "None";
+      els.tradeProfitLoss.textContent = pnlText(state.member.tradeProfitLoss, "M");
+      els.tradingClosedBanner.classList.toggle("hidden", enabled);
+      els.tradeCreditForm.querySelector("button[type=submit]").disabled = !enabled;
+      els.buyTradeBtn.disabled = !enabled || Boolean(position);
+      els.sellTradeBtn.disabled = !enabled || Boolean(position);
+      els.closeTradeBtn.disabled = !enabled || !position;
+      if (!enabled) els.tradeStatus.textContent = "Trading is paused by admin. Mock Trade is still available.";
+      drawMarketGraph(els.tradeCanvas, state.marketSeries, position);
+    }
+
+    function renderAdminTrading() {
+      if (!state.isAdmin) return;
+      const enabled = state.tradingEnabled !== false;
+      els.adminTradingStatus.textContent = enabled
+        ? "Trading is enabled for all members."
+        : "Trading is paused for all members. Mock Trade remains available.";
+      els.adminTradingToggle.textContent = enabled ? "Stop Trading for Everyone" : "Re-enable Trading for Everyone";
+      els.adminTradingToggle.className = enabled ? "danger" : "primary";
+    }
+
+    function renderMockTrading() {
+      if (!state.member) return;
+      const price = Number(state.marketPrice || 100);
+      const position = state.mockPosition;
+      els.mockPrice.textContent = price.toFixed(2);
+      els.mockBalance.textContent = `${Number(state.member.mockBalance || 1000).toLocaleString()} V`;
+      els.mockPosition.textContent = position ? `${position.side.toUpperCase()} @ ${position.entry.toFixed(2)}` : "None";
+      els.mockProfitLoss.textContent = pnlText(state.member.mockProfitLoss, "V");
+      els.mockBuyBtn.disabled = Boolean(position);
+      els.mockSellBtn.disabled = Boolean(position);
+      els.mockCloseBtn.disabled = !position;
+      drawMarketGraph(els.mockTradeCanvas, state.marketSeries, position);
+    }
+
+    function startMarket() {
+      if (state.marketTimer) return;
+      state.marketPrice = 100;
+      state.marketSeries = Array.from({ length: 42 }, (_, index) => 100 + Math.sin(index / 3) * 3 + (Math.random() - 0.5) * 2);
+      state.marketTimer = setInterval(() => {
+        const drift = (Math.random() - 0.5) * 4;
+        state.marketPrice = Math.max(70, Math.min(130, state.marketPrice + drift));
+        state.marketSeries.push(state.marketPrice);
+        state.marketSeries = state.marketSeries.slice(-60);
+        renderTrading();
+        renderMockTrading();
+      }, 1400);
+    }
+
+    async function buyTradeCredits(event) {
+      event.preventDefault();
+      if (!guardActive()) return;
+      if (state.tradingEnabled === false) { toast("Trading is paused by admin."); return; }
+      const amount = Math.floor(Number(els.tradeCreditAmount.value));
+      const cost = amount * 3;
+      if (amount < 1 || amount > 50) {
+        toast("Choose between 1 and 50 credits.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            if (!state.isAdmin && Number(member.balance || 0) < cost) throw new Error("Not enough Monopoly.");
+            tx.update(ref, { tradeCredits: Number(member.tradeCredits || 0) + amount, ...(state.isAdmin ? {} : { balance: Number(member.balance || 0) - cost }) });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          if (!state.isAdmin && member.balance < cost) throw new Error("Not enough Monopoly.");
+          member.tradeCredits = Number(member.tradeCredits || 0) + amount;
+          if (!state.isAdmin) member.balance -= cost;
+          saveLocal();
+          pullLocalState();
+        }
+        toast(`${amount} Trading Credit${amount === 1 ? "" : "s"} added.`);
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not buy credits.");
+      }
+    }
+
+    async function openTrade(side) {
+      if (!guardActive()) return;
+      if (state.tradingEnabled === false) { toast("Trading is paused by admin."); return; }
+      if (state.tradePosition) {
+        toast("Close the current position first.");
+        return;
+      }
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            if (Number(member.tradeCredits || 0) < 1) throw new Error("Buy a Trading Credit first.");
+            tx.update(ref, { tradeCredits: Number(member.tradeCredits || 0) - 1 });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          if (Number(member.tradeCredits || 0) < 1) throw new Error("Buy a Trading Credit first.");
+          member.tradeCredits -= 1;
+          saveLocal();
+          pullLocalState();
+        }
+        state.tradePosition = { side, entry: Number(state.marketPrice || 100) };
+        els.tradeStatus.textContent = `${side === "buy" ? "Long" : "Short"} position open. Close it to settle between -2 M and +8 M.`;
+        renderTrading();
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not open trade.");
+      }
+    }
+
+    async function closeTrade() {
+      if (state.tradingEnabled === false) { toast("Trading is paused by admin."); return; }
+      if (!state.tradePosition) return;
+      const position = state.tradePosition;
+      const movement = (Number(state.marketPrice || 100) - position.entry) * (position.side === "buy" ? 1 : -1);
+      const result = Math.max(-2, Math.min(8, Math.round(movement / 2)));
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            tx.update(ref, { balance: Number(member.balance || 0) + result, tradeProfitLoss: Number(member.tradeProfitLoss || 0) + result });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          member.balance += result;
+          member.tradeProfitLoss = Number(member.tradeProfitLoss || 0) + result;
+          saveLocal();
+          pullLocalState();
+        }
+        state.tradePosition = null;
+        els.tradeStatus.textContent = `Position closed: ${pnlText(result, "M")}. Maximum gain +8 M, maximum loss -2 M.`;
+        renderTrading();
+        renderSettings();
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not close trade.");
+      }
+    }
+
+    function openMockTrade(side) {
+      if (state.mockPosition) {
+        toast("Close the mock position first.");
+        return;
+      }
+      state.mockPosition = { side, entry: Number(state.marketPrice || 100) };
+      els.mockTradeStatus.textContent = `${side === "buy" ? "Long" : "Short"} mock position open. Close it to settle virtual money.`;
+      renderMockTrading();
+    }
+
+    async function closeMockTrade() {
+      if (!state.mockPosition) return;
+      const position = state.mockPosition;
+      const movement = (Number(state.marketPrice || 100) - position.entry) * (position.side === "buy" ? 1 : -1);
+      const result = Math.round(movement);
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            tx.update(ref, { mockBalance: Number(member.mockBalance || 1000) + result, mockProfitLoss: Number(member.mockProfitLoss || 0) + result });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          member.mockBalance = Number(member.mockBalance || 1000) + result;
+          member.mockProfitLoss = Number(member.mockProfitLoss || 0) + result;
+          saveLocal();
+          pullLocalState();
+        }
+        state.mockPosition = null;
+        els.mockTradeStatus.textContent = `Mock position closed: ${pnlText(result, "V")}.`;
+        renderMockTrading();
+        renderSettings();
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not close mock trade.");
+      }
+    }
+
+    function showCashbackScratch() {
+      const boxes = Number(state.member?.cashbackBoxes || 0);
+      if (!boxes) {
+        toast("Send 10 Monopoly to unlock a cashback gift.");
+        return;
+      }
+      showModal(`
+        <h2>Cashback gift box</h2>
+        <p class="subtle" style="margin:8px 0 16px;">Scratch the card to reveal a random reward. Maximum cashback is 6 Monopoly.</p>
+        <button class="scratch-card" data-scratch-cashback="true" type="button" aria-label="Scratch cashback card"><span class="scratch-number">?</span></button>
+        <div class="demo-disclaimer">NO REAL MONEY</div>
+      `);
+    }
+
+    async function revealCashback(target) {
+      if (target.classList.contains("revealed")) return;
+      const reward = Math.floor(Math.random() * 7);
+      target.classList.add("revealed");
+      target.querySelector(".scratch-number").textContent = `+${reward} M`;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          const ledgerRef = fx.doc(fx.collection(state.db, "ledger"));
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            const boxes = Number(member.cashbackBoxes || 0);
+            if (!boxes) throw new Error("No cashback gift remains.");
+            tx.update(ref, { balance: Number(member.balance || 0) + reward, cashbackBoxes: boxes - 1 });
+            tx.set(ledgerRef, { from: "cashback", to: state.handle, amount: reward, note: "Cashback scratch reward", type: "cashback", parties: unique(["cashback", state.handle]), createdAt: nowData(), clientCreatedAt: clientNow() });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          if (!Number(member.cashbackBoxes || 0)) throw new Error("No cashback gift remains.");
+          member.cashbackBoxes -= 1;
+          member.balance += reward;
+          localDB.ledger[id("cashback")] = { from: "cashback", to: state.handle, amount: reward, note: "Cashback scratch reward", type: "cashback", parties: unique(["cashback", state.handle]), createdAt: clientNow(), clientCreatedAt: clientNow() };
+          saveLocal();
+          pullLocalState();
+        }
+        playRewardChime();
+        target.insertAdjacentHTML("afterend", `<p class="payment-amount" style="text-align:center;">Cashback added to your wallet.</p>`);
+        renderSettings();
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Cashback could not be added.");
+      }
+    }
+
+    function renderFood() {
+      if (!state.member) return;
+      const inventory = state.member.foodInventory || {};
+      const cooked = state.member.cookedFood || [];
+      els.gasCount.textContent = String(Number(state.member.gas || 0));
+      els.foodShop.innerHTML = FOOD_MENU.map((food) => `
+        <article class="food-card">
+          <div class="food-art">${food.art}</div>
+          <h3>${esc(food.title)}</h3>
+          <p class="subtle">${food.price} M · eat for up to ${food.reward} M</p>
+          <p class="subtle">Owned: ${Number(inventory[food.id] || 0)}</p>
+          <button class="primary tiny" data-buy-food="${food.id}" type="button">Buy food</button>
+        </article>
+      `).join("");
+      const raw = FOOD_MENU.filter((food) => Number(inventory[food.id] || 0) > 0);
+      els.kitchenList.innerHTML = raw.length ? raw.map((food) => `
+        <article class="order-card">
+          <div class="order-top"><div><strong>${esc(food.title)}</strong><span class="subtle">Raw food · ${Number(inventory[food.id])} owned</span></div><button class="secondary tiny" data-cook-food="${food.id}" type="button">Cook</button></div>
+        </article>
+      `).join("") : `<div class="empty">Buy food first, then cook it here.</div>`;
+      els.dinnerList.innerHTML = cooked.length ? cooked.map((foodId, index) => {
+        const food = foodById(foodId);
+        return `<button class="dinner-food" data-eat-food="${index}" type="button"><span class="food-art">${food.art}</span><strong>${esc(food.title)}</strong><span class="subtle">Press and hold to eat</span></button>`;
+      }).join("") : `<div class="empty">Your dinner table is empty. Cook something first.</div>`;
+    }
+
+    async function saveMemberFields(patch) {
+      state.member = { ...state.member, ...patch };
+      renderSettings();
+      if (state.cloud) {
+        await state.fx.updateDoc(state.fx.doc(state.db, "members", state.handle), patch);
+      } else {
+        Object.assign(localDB.members[state.handle], patch);
+        saveLocal();
+        pullLocalState();
+      }
+    }
+
+    async function savePin(event) {
+      event.preventDefault();
+      const pin = els.pinInput.value.trim();
+      const confirmation = els.pinConfirm.value.trim();
+      if (!/^\d{4,6}$/.test(pin) || pin !== confirmation) {
+        toast("PIN must be 4 to 6 matching digits.");
+        return;
+      }
+      try {
+        await saveMemberFields({ pin });
+        els.pinForm.reset();
+        toast("Payment PIN saved.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Could not save PIN.");
+      }
+    }
+
+    async function saveTheme(event) {
+      const theme = event.target.value === "dark" ? "dark" : "light";
+      try {
+        await saveMemberFields({ theme });
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Could not save theme.");
+      }
+    }
+
+    async function buyFood(foodId) {
+      if (!guardActive()) return;
+      const food = foodById(foodId);
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            if (!snap.exists()) throw new Error("Member not found.");
+            const member = snap.data();
+            if (!state.isAdmin && Number(member.balance || 0) < food.price) throw new Error("Not enough Monopoly.");
+            const foodInventory = { ...(member.foodInventory || {}) };
+            foodInventory[food.id] = Number(foodInventory[food.id] || 0) + 1;
+            tx.update(ref, { foodInventory, ...(state.isAdmin ? {} : { balance: Number(member.balance || 0) - food.price }) });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          if (!state.isAdmin && member.balance < food.price) throw new Error("Not enough Monopoly.");
+          member.foodInventory ||= {};
+          member.foodInventory[food.id] = Number(member.foodInventory[food.id] || 0) + 1;
+          if (!state.isAdmin) member.balance -= food.price;
+          saveLocal();
+          pullLocalState();
+        }
+        toast(`${food.title} added to your kitchen.`);
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not buy food.");
+      }
+    }
+
+    async function buyGas() {
+      if (!guardActive()) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            if (!state.isAdmin && Number(member.balance || 0) < 2) throw new Error("Not enough Monopoly.");
+            tx.update(ref, { gas: Number(member.gas || 0) + 1, ...(state.isAdmin ? {} : { balance: Number(member.balance || 0) - 2 }) });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          if (!state.isAdmin && member.balance < 2) throw new Error("Not enough Monopoly.");
+          member.gas = Number(member.gas || 0) + 1;
+          if (!state.isAdmin) member.balance -= 2;
+          saveLocal();
+          pullLocalState();
+        }
+        toast("Virtual gas added.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not buy gas.");
+      }
+    }
+
+    async function cookFood(foodId) {
+      if (!guardActive()) return;
+      const food = foodById(foodId);
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            const inventory = { ...(member.foodInventory || {}) };
+            if (!Number(inventory[food.id])) throw new Error("Buy this food first.");
+            if (!Number(member.gas || 0)) throw new Error("Buy virtual gas first.");
+            inventory[food.id] -= 1;
+            tx.update(ref, { foodInventory: inventory, gas: Number(member.gas || 0) - 1, cookedFood: [...(member.cookedFood || []), food.id] });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          member.foodInventory ||= {};
+          if (!Number(member.foodInventory[food.id])) throw new Error("Buy this food first.");
+          if (!Number(member.gas || 0)) throw new Error("Buy virtual gas first.");
+          member.foodInventory[food.id] -= 1;
+          member.gas -= 1;
+          member.cookedFood ||= [];
+          member.cookedFood.push(food.id);
+          saveLocal();
+          pullLocalState();
+        }
+        toast(`${food.title} is cooked and ready.`);
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not cook food.");
+      }
+    }
+
+    function startEatHold(target) {
+      clearTimeout(state.eatTimer);
+      target.classList.add("eating");
+      state.eatTimer = setTimeout(() => {
+        target.classList.remove("eating");
+        eatFood(Number(target.dataset.eatFood));
+      }, 1200);
+    }
+
+    function stopEatHold(target) {
+      clearTimeout(state.eatTimer);
+      target?.classList.remove("eating");
+    }
+
+    async function eatFood(index) {
+      if (!guardActive()) return;
+      try {
+        if (state.cloud) {
+          const fx = state.fx;
+          const ref = fx.doc(state.db, "members", state.handle);
+          await fx.runTransaction(state.db, async (tx) => {
+            const snap = await tx.get(ref);
+            const member = snap.data();
+            const cookedFood = [...(member.cookedFood || [])];
+            const food = foodById(cookedFood[index]);
+            if (!cookedFood[index]) throw new Error("Cook a meal first.");
+            cookedFood.splice(index, 1);
+            tx.update(ref, { cookedFood, balance: Number(member.balance || 0) + Math.min(4, food.reward) });
+          });
+        } else {
+          const member = localDB.members[state.handle];
+          const cookedFood = member.cookedFood || [];
+          const food = foodById(cookedFood[index]);
+          if (!cookedFood[index]) throw new Error("Cook a meal first.");
+          cookedFood.splice(index, 1);
+          member.balance += Math.min(4, food.reward);
+          saveLocal();
+          pullLocalState();
+        }
+        playChime();
+        toast("Dinner finished. Monopoly added.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast(error.message || "Could not eat dinner.");
+      }
+    }
+
+    function newMemoryGame() {
+      const values = ["M", "M", "LC", "LC", "S", "S"].sort(() => Math.random() - 0.5);
+      state.memory = { cards: values, flipped: [], matched: [] };
+      renderMemory();
+    }
+
+    function renderMemory() {
+      els.memoryBoard.innerHTML = state.memory.cards.map((value, index) => {
+        const open = state.memory.flipped.includes(index) || state.memory.matched.includes(index);
+        return `<button class="memory-card ${open ? "revealed" : ""} ${state.memory.matched.includes(index) ? "matched" : ""}" data-memory-index="${index}" type="button">${open ? value : "?"}</button>`;
+      }).join("");
+      els.memoryStatus.textContent = state.memory.matched.length === 6 ? "All pairs matched." : `Matched ${state.memory.matched.length / 2} of 3 pairs.`;
+    }
+
+    function flipMemory(index) {
+      if (state.memory.flipped.includes(index) || state.memory.matched.includes(index) || state.memory.flipped.length >= 2) return;
+      state.memory.flipped.push(index);
+      renderMemory();
+      if (state.memory.flipped.length === 2) {
+        const [a, b] = state.memory.flipped;
+        if (state.memory.cards[a] === state.memory.cards[b]) {
+          state.memory.matched.push(a, b);
+          state.memory.flipped = [];
+          playChime();
+          renderMemory();
+        } else {
+          clearTimeout(state.memoryTimer);
+          state.memoryTimer = setTimeout(() => { state.memory.flipped = []; renderMemory(); }, 700);
+        }
+      }
+    }
+
+    function startTapRound() {
+      clearInterval(state.tap.timer);
+      state.tap = { active: true, score: 0, seconds: 10, timer: null };
+      els.tapButton.disabled = false;
+      els.tapStatus.textContent = "Tap as fast as you can: 10s";
+      state.tap.timer = setInterval(() => {
+        state.tap.seconds -= 1;
+        els.tapStatus.textContent = `Score ${state.tap.score} · ${state.tap.seconds}s left`;
+        if (state.tap.seconds <= 0) {
+          clearInterval(state.tap.timer);
+          state.tap.active = false;
+          els.tapButton.disabled = true;
+          els.tapStatus.textContent = `Round over: ${state.tap.score} taps.`;
+        }
+      }, 1000);
     }
 
     function renderActivity() {
@@ -2373,18 +3547,11 @@ Try Again
       return true;
     }
 
-    async function login(event) {
-      event.preventDefault();
-      const handle = cleanHandle(els.handleInput.value);
-      if (!handle) {
-        setHandleHint("Write a valid handle first.", "bad");
-        return;
-      }
-      state.isAdmin = els.adminKeyInput.value.trim() === ADMIN_KEY;
+    async function openSession(handle, isAdmin) {
+      state.isAdmin = Boolean(isAdmin);
       const member = await ensureMember(handle);
       if (member.banned && !state.isAdmin) {
-        setHandleHint("This handle is banned by admin.", "bad");
-        return;
+        throw new Error("This handle is banned by admin.");
       }
       state.handle = handle;
       state.member = member;
@@ -2396,8 +3563,24 @@ Try Again
       drawWheel();
       await loadChess();
       resetMaze();
+      newMemoryGame();
       startQuizTimer();
+      startMarket();
       renderAll();
+    }
+
+    async function login(event) {
+      event.preventDefault();
+      const handle = cleanHandle(els.handleInput.value);
+      if (!handle) {
+        setHandleHint("Write a valid handle first.", "bad");
+        return;
+      }
+      try {
+        await openSession(handle, els.adminKeyInput.value.trim() === ADMIN_KEY);
+      } catch (error) {
+        setHandleHint(error.message || "Could not log in.", "bad");
+      }
     }
 
     function logout() {
@@ -2440,8 +3623,19 @@ Try Again
       const to = cleanHandle($("#sendTo").value);
       const amount = Math.floor(Number($("#sendAmount").value));
       const note = $("#sendNote").value.trim().slice(0, 60);
+      const pin = $("#sendPin").value.trim();
       if (!to || to === state.handle || amount < 1) {
         toast("Check receiver and amount.");
+        return;
+      }
+      if (!/^\d{4,6}$/.test(state.member?.pin || "")) {
+        toast("Set a payment PIN in Settings first.");
+        state.activeTab = "settings";
+        renderTabs();
+        return;
+      }
+      if (pin !== state.member.pin) {
+        toast("Wrong payment PIN.");
         return;
       }
 
@@ -2458,8 +3652,12 @@ Try Again
             const receiver = toSnap.data();
             if (from?.banned && !state.isAdmin) throw new Error("Your handle is banned.");
             if (receiver?.banned) throw new Error("Receiver is banned.");
+            if (from.pin !== pin) throw new Error("Wrong payment PIN.");
             if (!state.isAdmin && Number(from.balance || 0) < amount) throw new Error("Not enough Monopoly.");
-            if (!state.isAdmin) tx.update(fromRef, { balance: Number(from.balance || 0) - amount });
+            const previousVolume = Number(from.paymentVolume || 0);
+            const nextVolume = previousVolume + amount;
+            const newBoxes = Number(from.cashbackBoxes || 0) + Math.floor(nextVolume / 10) - Math.floor(previousVolume / 10);
+            if (!state.isAdmin) tx.update(fromRef, { balance: Number(from.balance || 0) - amount, paymentVolume: nextVolume, cashbackBoxes: newBoxes });
             tx.update(toRef, { balance: Number(receiver.balance || 0) + amount });
             tx.set(txRef, {
               from: state.handle,
@@ -2477,8 +3675,15 @@ Try Again
           const receiver = localDB.members[to];
           if (!receiver) throw new Error("Receiver handle not found.");
           if (receiver.banned) throw new Error("Receiver is banned.");
+          if (from.pin !== pin) throw new Error("Wrong payment PIN.");
           if (!state.isAdmin && from.balance < amount) throw new Error("Not enough Monopoly.");
-          if (!state.isAdmin) from.balance -= amount;
+          const previousVolume = Number(from.paymentVolume || 0);
+          const nextVolume = previousVolume + amount;
+          if (!state.isAdmin) {
+            from.balance -= amount;
+            from.paymentVolume = nextVolume;
+            from.cashbackBoxes = Number(from.cashbackBoxes || 0) + Math.floor(nextVolume / 10) - Math.floor(previousVolume / 10);
+          }
           receiver.balance += amount;
           localDB.ledger[id("tx")] = {
             from: state.handle,
@@ -2495,6 +3700,7 @@ Try Again
         }
         $("#sendForm").reset();
         $("#sendAmount").value = "10";
+        renderSettings();
         showPaymentSuccess(to, amount);
       } catch (error) {
         if (state.cloud) {
@@ -3027,6 +4233,31 @@ Try Again
       }
     }
 
+    async function toggleTrading() {
+      if (!state.isAdmin) return;
+      const next = state.tradingEnabled === false;
+      try {
+        if (state.cloud) {
+          await state.fx.setDoc(state.fx.doc(state.db, "appSettings", "trading"), {
+            enabled: next,
+            updatedAt: state.fx.serverTimestamp(),
+            updatedBy: state.handle
+          });
+        } else {
+          localDB.tradingEnabled = next;
+          saveLocal();
+          pullLocalState();
+        }
+        state.tradingEnabled = next;
+        renderTrading();
+        renderAdminTrading();
+        toast(next ? "Trading re-enabled for everyone." : "Trading paused for everyone. Mock Trade is still available.");
+      } catch (error) {
+        if (state.cloud) switchOffline(error);
+        toast("Trading control update failed.");
+      }
+    }
+
     async function setBan(handle, banned) {
       if (!state.isAdmin) return;
       handle = cleanHandle(handle);
@@ -3278,6 +4509,7 @@ Try Again
     function showPaymentSuccess(to, amount) {
       playChime();
       showModal(`
+        <div class="payment-screen">
         <div class="success-orbit">
           <div class="coin one">M</div>
           <div class="tick-ring"></div>
@@ -3287,7 +4519,9 @@ Try Again
         <p class="payment-amount">-${Number(amount)} M</p>
         <p class="subtle" style="margin-top:8px;">Monopoly sent to @${esc(to)}</p>
         <button class="primary" data-close-modal type="button" style="margin-top:18px;">Done</button>
-      `, true);
+        <div class="demo-disclaimer">NO REAL MONEY</div>
+        </div>
+      `, { fullscreen: true });
     }
 
     function showReceived(tx) {
@@ -3320,13 +4554,13 @@ Try Again
       `);
     }
 
-    function showModal(html, autoClose = false) {
+    function showModal(html, options = {}) {
+      const fullscreen = Boolean(options?.fullscreen);
       els.modalRoot.innerHTML = `
-        <div class="modal">
-          <div class="modal-card">${html}</div>
+        <div class="modal ${fullscreen ? "modal-fullscreen" : ""}">
+          <div class="modal-card ${fullscreen ? "modal-fullscreen-card" : ""}">${html}</div>
         </div>
       `;
-      if (autoClose) setTimeout(closeModal, 3600);
     }
 
     function closeModal() {
@@ -3644,14 +4878,33 @@ Try Again
       els.handleInput.addEventListener("input", scheduleHandleCheck);
       els.logoutBtn.addEventListener("click", logout);
       els.sendForm.addEventListener("submit", sendMoney);
+      els.pinForm.addEventListener("submit", savePin);
+      els.themeSelect.addEventListener("change", saveTheme);
+      els.cashbackBtn.addEventListener("click", showCashbackScratch);
       els.productForm.addEventListener("submit", launchProduct);
       els.campaignForm.addEventListener("submit", createCampaign);
       els.adminGiveForm.addEventListener("submit", adminGive);
       els.adminGiveAll.addEventListener("click", adminGiveEveryone);
       els.adminEraseAll.addEventListener("click", adminEraseAll);
+      els.adminTradingToggle.addEventListener("click", toggleTrading);
       els.adminQuizForm.addEventListener("submit", launchQuiz);
       els.viewCartBtn.addEventListener("click", showCart);
       els.claimQuizBtn.addEventListener("click", claimQuiz);
+      els.buyGasBtn.addEventListener("click", buyGas);
+      els.tradeCreditForm.addEventListener("submit", buyTradeCredits);
+      els.buyTradeBtn.addEventListener("click", () => openTrade("buy"));
+      els.sellTradeBtn.addEventListener("click", () => openTrade("sell"));
+      els.closeTradeBtn.addEventListener("click", closeTrade);
+      els.mockBuyBtn.addEventListener("click", () => openMockTrade("buy"));
+      els.mockSellBtn.addEventListener("click", () => openMockTrade("sell"));
+      els.mockCloseBtn.addEventListener("click", closeMockTrade);
+      els.resetMemoryBtn.addEventListener("click", newMemoryGame);
+      els.startTapBtn.addEventListener("click", startTapRound);
+      els.tapButton.addEventListener("click", () => {
+        if (!state.tap.active) return;
+        state.tap.score += 1;
+        els.tapStatus.textContent = `Score ${state.tap.score} · ${state.tap.seconds}s left`;
+      });
       els.shopSearch.addEventListener("input", () => {
         state.shopQuery = els.shopSearch.value;
         renderProducts();
@@ -3700,6 +4953,10 @@ Try Again
           renderTabs();
         }
         if (target.dataset.buy) buyProduct(target.dataset.buy);
+        if (target.dataset.buyFood) buyFood(target.dataset.buyFood);
+        if (target.dataset.cookFood) cookFood(target.dataset.cookFood);
+        if (target.dataset.memoryIndex) flipMemory(Number(target.dataset.memoryIndex));
+        if ("scratchCashback" in target.dataset) revealCashback(target);
         if (target.dataset.addCart) addToCart(target.dataset.addCart);
         if (target.dataset.cartBuy) buyProduct(target.dataset.cartBuy);
         if (target.dataset.removeCart) removeFromCart(target.dataset.removeCart);
@@ -3720,20 +4977,38 @@ Try Again
           moveMaze(Number(pad.dataset.player), dx, dy);
         }
       });
+
+      document.addEventListener("pointerdown", (event) => {
+        const scratch = event.target.closest("[data-scratch-cashback]");
+        if (scratch) revealCashback(scratch);
+        const target = event.target.closest("[data-eat-food]");
+        if (target) startEatHold(target);
+      });
+      document.addEventListener("pointerup", (event) => {
+        const target = event.target.closest("[data-eat-food]");
+        if (target) stopEatHold(target);
+      });
+      document.addEventListener("pointercancel", (event) => {
+        const target = event.target.closest("[data-eat-food]");
+        if (target) stopEatHold(target);
+      });
     }
 
-    function restoreSessionToLogin() {
+    async function restoreSession() {
       const session = readJson(SESSION_KEY, null);
       if (session?.handle) {
-        els.handleInput.value = session.handle;
-        if (session.isAdmin) els.adminKeyInput.placeholder = "Admin key required again";
-        scheduleHandleCheck();
+        try {
+          await openSession(cleanHandle(session.handle), Boolean(session.isAdmin));
+        } catch (error) {
+          localStorage.removeItem(SESSION_KEY);
+          setHandleHint("Session expired. Write your handle to continue.", "bad");
+        }
       }
     }
 
     setupEvents();
-    restoreSessionToLogin();
     await connectFirebase();
+    await restoreSession();
     drawWheel();
   </script>
 </body>
